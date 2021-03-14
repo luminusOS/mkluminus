@@ -5,3 +5,5 @@ linux
 mkinitcpio
 mkinitcpio-archiso
 syslinux
+edk2-shell
+memtest86+
