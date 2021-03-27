@@ -20,6 +20,9 @@ Just one more project of a linux distro. Based on <a href="https://www.archlinux
 You need install these packages to build the ISO.
 
  - Archiso >= 49-1
+ - EDK2 UEFI Shell
+ - SYSLINUX
+ - Memtest86+
  - Git
 
 Get the source code.
