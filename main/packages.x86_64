@@ -2,6 +2,8 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 base
 linux
+linux-headers
+linux-firmware
 mkinitcpio
 mkinitcpio-archiso
 syslinux
@@ -9,5 +11,28 @@ systemd
 edk2-shell
 memtest86+
 
-# User
+# Desktop Environment
 sddm
+
+# Virtual Box
+virtualbox-guest-dkms
+virtualbox-guest-utils
+
+# Xorg Server
+xorg-server
+xorg-xbacklight
+xorg-fonts-misc
+xorg-xinput
+xorg-xfd
+xorg-xkill
+xorg-xrandr
+xorg-xrdb
+xorg-xset
+
+# Video Drivers
+xf86-video-fbdev
+xf86-video-vesa
+xf86-video-intel
+xf86-video-amdgpu
+xf86-video-ati
+xf86-video-nouveau

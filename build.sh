@@ -19,11 +19,17 @@ out_dir="${base_path}/out"
 
 build_iso() {
     # Check if work_dir exists and delete then
-    #if [ -d "${work_dir}" ]; then
-    #    rm -rf "${work_dir}"
-    #fi
+    if [ -d "${work_dir}" ]; then
+        echo "Deleting work folder..."
+        sleep 2
+        rm -rfv "${work_dir}"
+    fi
     mkarchiso -v -w "${work_dir}" -o "${out_dir}" "${base_path}/main"
 }
 
+#build_iso
 build_iso
+#echo "Executing chmod..."
+#chmod -R 755 "${work_dir}"
+#find "${work_dir}" -type d -exec chmod 755 {} \;
 exit 0
