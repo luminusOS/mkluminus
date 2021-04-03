@@ -16,20 +16,23 @@ out_dir="${base_path}/out"
 # mkarchiso -v -w /path/to/work_dir -o /path/to/out_dir /path/to/profile/
 # find . -type f -print0 | xargs -0 dos2unix
 # chmod -R 755 work/
+# ln -sfn /usr/lib/systemd/system/sddm.service display-manager.service
 
 build_iso() {
     # Check if work_dir exists and delete then
-    if [ -d "${work_dir}" ]; then
-        echo "Deleting work folder..."
-        sleep 2
-        rm -rfv "${work_dir}"
-    fi
+    #if [ -d "${work_dir}" ]; then
+    #    echo "Deleting work folder..."
+    #    sleep 2
+    #    rm -rfv "${work_dir}"
+    #fi
     mkarchiso -v -w "${work_dir}" -o "${out_dir}" "${base_path}/main"
 }
 
-#build_iso
+rm -rfv "${work_dir}"
 build_iso
-#echo "Executing chmod..."
-#chmod -R 755 "${work_dir}"
-#find "${work_dir}" -type d -exec chmod 755 {} \;
+rm -rfv /mnt/c/Users/Leandro/Documents/GitHub/makeiso/work/x86_64/airootfs/usr/lib/Xorg
+rm -rfv /mnt/c/Users/Leandro/Documents/GitHub/makeiso/work/x86_64/airootfs/usr/share/licenses/common/APACHE
+chmod -v 755 /mnt/c/Users/Leandro/Documents/GitHub/makeiso/work/x86_64/airootfs/etc/machine-id
+build_iso
+
 exit 0
