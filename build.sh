@@ -20,19 +20,19 @@ out_dir="${base_path}/out"
 
 build_iso() {
     # Check if work_dir exists and delete then
-    #if [ -d "${work_dir}" ]; then
-    #    echo "Deleting work folder..."
-    #    sleep 2
-    #    rm -rfv "${work_dir}"
-    #fi
+    if [ -d "${work_dir}" ]; then
+        echo "Deleting work folder..."
+        sleep 2
+        rm -rfv "${work_dir}"
+    fi
     mkarchiso -v -w "${work_dir}" -o "${out_dir}" "${base_path}/main"
 }
 
-rm -rfv "${work_dir}"
+run_iso() {
+    run_archiso -i "${base_path}/out/luminos-baseline-2021.04.03-x86_64.iso"
+}
+
 build_iso
-rm -rfv /mnt/c/Users/Leandro/Documents/GitHub/makeiso/work/x86_64/airootfs/usr/lib/Xorg
-rm -rfv /mnt/c/Users/Leandro/Documents/GitHub/makeiso/work/x86_64/airootfs/usr/share/licenses/common/APACHE
-chmod -v 755 /mnt/c/Users/Leandro/Documents/GitHub/makeiso/work/x86_64/airootfs/etc/machine-id
-build_iso
+run_iso
 
 exit 0
