@@ -25,7 +25,9 @@ build_iso() {
         sleep 2
         rm -rfv "${work_dir}"
     fi
-    mkarchiso -v -w "${work_dir}" -o "${out_dir}" "${base_path}/main"
+    mkdir -p "${work_dir}/x86_64/airootfs/home/live"
+    chown 1000 "${work_dir}/x86_64/airootfs/home/live"
+    mkarchiso -v -w "${work_dir}" -o "${out_dir}" "${base_path}/basic"
 }
 
 run_iso() {
