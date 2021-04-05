@@ -43,6 +43,7 @@ intel-ucode
 # Functionality
 bluedevil
 chromium
+firewalld
 konsole
 reflector
 
