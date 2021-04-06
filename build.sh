@@ -38,11 +38,8 @@ run_iso() {
     run_archiso -i "${base_path}/out/luminos-baseline-2021.04.03-x86_64.iso"
 }
 
-_buildsh_path="$(realpath -- "$0")"
-exec mkarchiso "$@" "${_buildsh_path%/*}/basic/"
-
-#config_iso
-#build_iso
-#run_iso
+config_iso
+build_iso
+run_iso
 
 exit 0
