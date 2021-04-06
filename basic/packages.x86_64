@@ -1,9 +1,19 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Basic Packages
+base
 bzip2
 coreutils
+crda
+dosfstools
 edk2-shell
+efibootmgr
+espeakup
+ethtool
+exfatprogs
+f2fs-tools
+fatresize
+fsarchiver
 file
 filesystem
 findutils
@@ -11,26 +21,42 @@ gawk
 gcc-libs
 gettext
 glibc
+gpart
+gpm
+gptfdisk
 grep
 gzip
+hdparm
 iproute2
 iputils
+ipw2100-fw
+ipw2200-fw
 iwd
 licenses
 linux
 linux-headers
 linux-firmware
+nano
 mkinitcpio
 mkinitcpio-archiso
+mkinitcpio-nfs-utils
 memtest86+
+modemmanager
+mtools
+nfs-utils
+nilfs-utils
+nmap
+ntfs-3g
 pacman
 pciutils
 procps-ng
 psmisc
 sed
 shadow
+sudo
 syslinux
 systemd
+systemd-resolvconf
 systemd-sysvcompat
 tar
 util-linux
@@ -45,6 +71,8 @@ bluedevil
 chromium
 firewalld
 konsole
+kwrite
+packagekit-qt5
 reflector
 
 # Desktop Environment

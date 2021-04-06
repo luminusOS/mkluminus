@@ -18,23 +18,31 @@ out_dir="${base_path}/out"
 # chmod -R 755 work/
 # ln -sfn /usr/lib/systemd/system/sddm.service display-manager.service
 
-build_iso() {
+config_iso() {
     # Check if work_dir exists and delete then
     if [ -d "${work_dir}" ]; then
-        echo "Deleting work folder..."
+        echo "[makeiso] Deleting work folder..."
         sleep 2
         rm -rfv "${work_dir}"
     fi
-    mkdir -p "${work_dir}/x86_64/airootfs/home/live"
-    chown 1000 "${work_dir}/x86_64/airootfs/home/live"
-    mkarchiso -v -w "${work_dir}" -o "${out_dir}" "${base_path}/basic"
+    echo "[makeiso] Creating home folder and giving correct permissions..."
+    #mkdir -p "${work_dir}/x86_64/airootfs/home/live"
+    #chown 1000 "${work_dir}/x86_64/airootfs/home/live"
+}
+
+build_iso() {
+    exec mkarchiso -v -w "${work_dir}" -o "${out_dir}" "${base_path}/basic"
 }
 
 run_iso() {
     run_archiso -i "${base_path}/out/luminos-baseline-2021.04.03-x86_64.iso"
 }
 
-build_iso
-run_iso
+_buildsh_path="$(realpath -- "$0")"
+exec mkarchiso "$@" "${_buildsh_path%/*}/basic/"
+
+#config_iso
+#build_iso
+#run_iso
 
 exit 0

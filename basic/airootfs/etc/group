@@ -8,5 +8,4 @@ audio:x:15:live
 video:x:16:live
 scanner:x:20:live
 optical:x:22:live
-users:x:985:
-live:x:1000:
+users:x:955:
