@@ -1,6 +1,6 @@
 
 <p align="center">
-<a href="https://luminos.github.io"><img src="https://avatars.githubusercontent.com/u/61036387?s=200&v=4" height="150" width="150" alt="LuminOS"></a>
+<a href="https://luminos.github.io"><img src="./docs/images/logo.png" height="150" width="150" alt="LuminOS"></a>
 </p>
 
 <p align="center">
