@@ -13,7 +13,6 @@ f2fs-tools
 fatresize
 fsarchiver
 fwupd
-gptfdisk
 hdparm
 iwd
 jack
@@ -38,7 +37,7 @@ intel-ucode
 # Apps
 bash-completion
 chromium
-firewalld
+#firewalld
 ffmpegthumbs
 reflector
 vlc
@@ -49,6 +48,7 @@ kdialog
 kimageformats
 konsole
 kwrite
+partitionmanager
 plasma
 sddm
 
