@@ -1,110 +1,71 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
+
 # Basic Packages
 base
-bzip2
-coreutils
 crda
 dosfstools
 edk2-shell
 efibootmgr
-espeakup
 ethtool
 exfatprogs
 f2fs-tools
 fatresize
 fsarchiver
-file
-filesystem
-findutils
-gawk
-gcc-libs
-gettext
-glibc
-gpart
-gpm
+fwupd
 gptfdisk
-grep
-gzip
 hdparm
-iproute2
-iputils
-ipw2100-fw
-ipw2200-fw
 iwd
-licenses
-linux
-linux-headers
-linux-firmware
+jack
 nano
 mkinitcpio
 mkinitcpio-archiso
 mkinitcpio-nfs-utils
-memtest86+
+#memtest86+
 modemmanager
 mtools
 nfs-utils
 nilfs-utils
 nmap
-ntfs-3g
-pacman
-pciutils
-procps-ng
-psmisc
-sed
-shadow
 sudo
 syslinux
-systemd
 systemd-resolvconf
-systemd-sysvcompat
-tar
-util-linux
-xz
 
 # Microcode
 amd-ucode
 intel-ucode
 
-# Functionality
-bluedevil
+# Apps
+bash-completion
 chromium
 firewalld
-konsole
-kwrite
-packagekit-qt5
+ffmpegthumbs
 reflector
+vlc
 
 # Desktop Environment
-breeze
-breeze-gtk
-discover
 dolphin
-drkonqi
-kde-cli-tools
-kde-gtk-config
-kdecoration
-kdeplasma-addons
-kgamma5
-khotkeys
-kinfocenter
-kscreen
-kscreenlocker
-ksysguard
-plasma-desktop
-plasma-disks
-plasma-firewall
-plasma-integration
-plasma-nm
-plasma-pa
-plasma-workspace
-plasma-workspace-wallpapers
-polkit-kde-agent
-powerdevil
+kdialog
+kimageformats
+konsole
+kwrite
+plasma
 sddm
-sddm-kcm
-systemsettings
-xdg-desktop-portal-kde
+
+# Firmware
+linux-firmware
+
+# Qt5
+packagekit-qt5
+phonon-qt5-vlc
+python-pyqt5
+qt5-imageformats
+qt5-tools
+qt5-virtualkeyboard
+
+# Kernel
+linux
+linux-headers
 
 # Virtual Box
 virtualbox-guest-dkms

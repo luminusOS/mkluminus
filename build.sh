@@ -22,8 +22,7 @@ config_iso() {
     # Check if work_dir exists and delete then
     if [ -d "${work_dir}" ]; then
         echo "[makeiso] Deleting work folder..."
-        sleep 2
-        rm -rfv "${work_dir}"
+        rm -rf "${work_dir}"
     fi
     echo "[makeiso] Creating home folder and giving correct permissions..."
     #mkdir -p "${work_dir}/x86_64/airootfs/home/live"
