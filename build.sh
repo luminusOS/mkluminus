@@ -24,9 +24,6 @@ config_iso() {
         echo "[makeiso] Deleting work folder..."
         rm -rf "${work_dir}"
     fi
-    echo "[makeiso] Creating home folder and giving correct permissions..."
-    #mkdir -p "${work_dir}/x86_64/airootfs/home/live"
-    #chown 1000 "${work_dir}/x86_64/airootfs/home/live"
 }
 
 build_iso() {
