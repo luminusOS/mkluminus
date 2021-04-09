@@ -20,13 +20,17 @@ out_dir="${base_path}/out"
 
 config_iso() {
     # Check if work_dir exists and delete then
-    if [ -d "${work_dir}" ]; then
-        echo "[makeiso] Deleting work folder..."
-        rm -rf "${work_dir}"
+    echo "[mkarchiso] Checking dependencies..."
+    if [[ -f "/usr/bin/mkarchiso" ]]; then
+        echo "[mkarchiso] ERROR: package 'archiso' not found."
     fi
 }
 
 build_iso() {
+    if [ -d "${work_dir}" ]; then
+        echo "[makeiso] Deleting work folder..."
+        rm -rf "${work_dir}"
+    fi
     exec mkarchiso -v -w "${work_dir}" -o "${out_dir}" "${base_path}/basic"
 }
 
