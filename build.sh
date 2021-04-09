@@ -19,19 +19,22 @@ out_dir="${base_path}/out"
 # ln -sfn /usr/lib/systemd/system/sddm.service display-manager.service
 
 config_iso() {
-    # Check if work_dir exists and delete then
-    echo "[mkarchiso] Checking dependencies..."
-    if [[ -f "/usr/bin/mkarchiso" ]]; then
-        echo "[mkarchiso] ERROR: package 'archiso' not found."
+    echo "[makeiso] Checking dependencies..."
+    if [ ! -f "/usr/bin/mkarchiso" ]; then
+        echo "[makeiso] ERROR: package 'archiso' not found."
+        exit 1
     fi
 }
 
 build_iso() {
+    # Check if work_dir exists and delete then
+    # Necessary for rebuild the iso with base configurations if have any changes.
+    # See https://wiki.archlinux.org/index.php/Archiso#Removal_of_work_directory
     if [ -d "${work_dir}" ]; then
         echo "[makeiso] Deleting work folder..."
-        rm -rf "${work_dir}"
+        echo "[makeiso] Succesfully deleted `rm -rfv "${work_dir}" | wc -l` files"
     fi
-    exec mkarchiso -v -w "${work_dir}" -o "${out_dir}" "${base_path}/basic"
+    exec mkarchiso -v -w "${work_dir}" -o "${out_dir}" "${base_path}/base"
 }
 
 run_iso() {
