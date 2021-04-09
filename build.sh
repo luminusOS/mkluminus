@@ -10,8 +10,9 @@
 
 # Internal config
 base_path="$( cd "$( dirname "$0" )" && pwd )"
-work_dir="${base_path}/work"
+work_dir="/tmp/archiso-tmp"#"${base_path}/work"
 out_dir="${base_path}/out"
+date_today="$( date +'%Y.%m.%d' )"
 
 # mkarchiso -v -w /path/to/work_dir -o /path/to/out_dir /path/to/profile/
 # find . -type f -print0 | xargs -0 dos2unix
@@ -32,13 +33,13 @@ build_iso() {
     # See https://wiki.archlinux.org/index.php/Archiso#Removal_of_work_directory
     if [ -d "${work_dir}" ]; then
         echo "[makeiso] Deleting work folder..."
-        echo "[makeiso] Succesfully deleted `rm -rfv "${work_dir}" | wc -l` files"
+        echo "[makeiso] Succesfully deleted '$(rm -rfv "${work_dir}" | wc -l)' files"
     fi
     exec mkarchiso -v -w "${work_dir}" -o "${out_dir}" "${base_path}/base"
 }
 
 run_iso() {
-    run_archiso -i "${base_path}/out/luminos-baseline-2021.04.03-x86_64.iso"
+    run_archiso -u -i "${base_path}/out/luminos-main-${date_today}-x86_64.iso"
 }
 
 config_iso
