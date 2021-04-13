@@ -45,7 +45,6 @@ _build_iso() {
 }
 
 _run_iso() {
-    echo "AAAAAA"
     run_archiso -u -i "${base_path}/out/luminos-main-${date_today}-x86_64.iso"
 }
 
