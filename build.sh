@@ -7,7 +7,7 @@
 # The main script that runs the build
 #
 
-# Internal config
+
 base_path="$( cd "$( dirname "$0" )" && pwd )"
 work_dir="${base_path}/work"
 out_dir="${base_path}/out"
