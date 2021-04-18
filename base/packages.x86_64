@@ -36,6 +36,7 @@ intel-ucode
 
 # Apps
 bash-completion
+calamares
 chromium
 #firewalld
 ffmpegthumbs
