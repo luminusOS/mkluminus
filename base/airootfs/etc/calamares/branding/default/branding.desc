@@ -121,11 +121,11 @@ navigation: widget
 # are visible as buttons there if the corresponding *show* keys
 # are set to "true" (they can also be overridden).
 strings:
-    productName:         "@{NAME}"
+    productName:         LuminOS
     shortProductName:    LuminOS
-    version:             2021.4 LTS
-    shortVersion:        2021.4
-    versionedName:       LuminOS GNU/Linux 2021.4
+    version:             2021.4
+    shortVersion:        LuminOS
+    versionedName:       LuminOS 2021.4
     shortVersionedName:  LuminOS 2021.4
     bootloaderEntryName: LuminOS
     productUrl:          https://github.com/calamares/LuminOSx

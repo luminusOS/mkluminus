@@ -41,6 +41,8 @@ calamares
 chromium
 #firewalld
 ffmpegthumbs
+libreoffice-fresh
+os-prober
 reflector
 vlc
 
@@ -51,6 +53,7 @@ kimageformats
 konsole
 kwrite
 partitionmanager
+orchiis
 plasma
 plymouth
 sddm

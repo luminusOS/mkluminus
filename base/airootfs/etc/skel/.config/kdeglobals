@@ -1,2 +1,11 @@
 [KDE]
+ColorScheme=BreezeLight
+LookAndFeelPackage=Orchiis
 SingleClick=false
+
+[General]
+ColorScheme=Orchiis
+Name=Orchiis
+
+[Icons]
+Theme=Orchiis
