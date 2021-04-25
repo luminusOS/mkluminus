@@ -15,6 +15,18 @@
 Just one more project of a linux distro. Based on <a href="https://www.archlinux.org">Arch Linux</a>.
 </p>
 
+## Screenshots
+
+<p align="center">
+<img src="./docs/images/screenshot/1.png" alt="Screenshot 1">
+</p>
+<p align="center">
+<img src="./docs/images/screenshot/2.png" alt="Screenshot 2">
+</p>
+<p align="center">
+<img src="./docs/images/screenshot/3.png" alt="Screenshot 3">
+</p>
+
 ## Requirements
 
 You need install these packages to build the ISO.
