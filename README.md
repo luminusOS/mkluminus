@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-Just one more project of a linux distro. Based on <a href="https://www.archlinux.org">Arch Linux</a>.
+Embrace the productivity. Based on <a href="https://www.archlinux.org">Arch Linux</a>.
 </p>
 
 ## Screenshots
