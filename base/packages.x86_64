@@ -38,9 +38,10 @@ intel-ucode
 # Apps
 bash-completion
 calamares
-chromium
-#firewalld
+firefox
+firewalld
 ffmpegthumbs
+gamemode
 libreoffice-fresh
 os-prober
 reflector
@@ -74,7 +75,7 @@ linux
 linux-headers
 
 # Virtual Box
-virtualbox-guest-dkms
+virtualbox-guest-iso
 virtualbox-guest-utils
 
 # Xorg Server
