@@ -29,10 +29,15 @@ Embrace the productivity. Based on <a href="https://www.archlinux.org">Arch Linu
 
 ## Requirements
 
+For your system
+ - A UEFI System Compatible
+ - KVM CPU Compatible
+
 You need install these packages to build the ISO.
 
  - Archiso >= 49-1
  - Git
+ - QEMU
 
 Get the source code.
 
@@ -44,3 +49,19 @@ Get the source code.
 Just type the command
 
     sudo sh build.sh
+
+For build in /tmp files to use the memory space and fast build, type
+
+    sudo sh build.sh -T
+
+For more options in build
+
+    sh build.sh -h
+
+## Testing
+
+When complete the build, for test the ISO, you can use this simple command
+
+    sh build.sh -r
+
+And a new instance of QEMU is open for testing. You can also use the VirtualBox too.
