@@ -6,6 +6,14 @@ SingleClick=false
 [General]
 ColorScheme=Orchiis
 Name=Orchiis
+fixed=Source Code Pro,9,-1,5,50,0,0,0,0,0,Regular
+font=Roboto,10,-1,5,50,0,0,0,0,0,Regular
+menuFont=Roboto,10,-1,5,50,0,0,0,0,0,Regular
+smallestReadableFont=Roboto,8,-1,5,50,0,0,0,0,0,Regular
+toolBarFont=Roboto,10,-1,5,50,0,0,0,0,0,Regular
 
 [Icons]
 Theme=Orchiis
+
+[WM]
+activeFont=Roboto,9,-1,5,50,0,0,0,0,0,Regular

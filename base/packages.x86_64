@@ -59,6 +59,10 @@ plasma
 plymouth
 sddm
 
+# Fonts
+adobe-source-code-pro-fonts
+ttf-roboto
+
 # Firmware
 linux-firmware
 
