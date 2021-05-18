@@ -30,6 +30,7 @@ rsync
 sudo
 syslinux
 systemd-resolvconf
+zsh
 
 # Microcode
 amd-ucode
@@ -44,6 +45,7 @@ ffmpegthumbs
 gamemode
 libreoffice-fresh
 os-prober
+powerline
 reflector
 vlc
 
@@ -61,6 +63,7 @@ sddm
 
 # Fonts
 adobe-source-code-pro-fonts
+powerline-fonts
 ttf-roboto
 
 # Firmware
