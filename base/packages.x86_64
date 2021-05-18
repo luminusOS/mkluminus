@@ -104,3 +104,9 @@ xf86-video-amdgpu
 xf86-video-ati
 xf86-video-nouveau
 xf86-video-vmware
+
+# ZSH Plugins
+zsh-completions
+zsh-autosuggestions
+zsh-syntax-highlighting
+zsh-history-substring-search
