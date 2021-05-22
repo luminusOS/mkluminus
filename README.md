@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-Embrace the productivity. Based on <a href="https://www.archlinux.org">Arch Linux</a>.
+Focus on what matters. Based on <a href="https://www.archlinux.org">Arch Linux</a>.
 </p>
 
 ## Screenshots
