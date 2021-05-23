@@ -1,11 +1,6 @@
 #!/usr/bin/env bash
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
-#
-# build.sh
-#
-# The main script that runs the build
-#
 
 
 base_path="$( cd "$( dirname "$0" )" && pwd )"
@@ -26,6 +21,7 @@ usage: build.sh [options]
      -h               This message
      -T               Use /tmp folder to work directory
      -r               Run latest builded iso
+     -o               Change output iso directory
 
   profile_dir:        Directory of the archiso profile to build
 ENDUSAGETEXT
@@ -41,6 +37,9 @@ _config_iso() {
     fi
     if [[ -v override_work_dir ]]; then
         work_dir="$override_work_dir"
+    fi
+    if [[ -v override_out_dir ]]; then
+        out_dir="$override_out_dir"
     fi
 }
 
@@ -60,9 +59,10 @@ _run_iso() {
     run_archiso -u -i "${out_dir}/luminos-main-${date_today}-x86_64.iso"
 }
 
-while getopts 'rTh?' arg; do
+while getopts 'o:rTh?' arg; do
     case "${arg}" in
         T) override_work_dir="/tmp/archiso-tmp" ;;
+        o) override_out_dir="${OPTARG}" ;;
         r) _run_iso ;;
         h|?) _usage 0 ;;
         *)

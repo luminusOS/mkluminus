@@ -48,20 +48,24 @@ Get the source code.
 
 Just type the command
 
-    sudo sh build.sh
+    sudo sh makeiso
 
 For build in /tmp files to use the memory space and fast build, type
 
-    sudo sh build.sh -T
+    sudo sh makeiso -T
+
+When complete, the .iso file will be in the ./out directory by default, you can also change this with
+
+    sudo sh makeiso -o '/out_directory_here'
 
 For more options in build
 
-    sh build.sh -h
+    sh makeiso -h
 
 ## Testing
 
 When complete the build, for test the ISO, you can use this simple command
 
-    sh build.sh -r
+    sh makeiso -r
 
 And a new instance of QEMU is open for testing. You can also use the VirtualBox too.
