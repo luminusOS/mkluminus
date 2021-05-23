@@ -55,15 +55,20 @@ _build_iso() {
 }
 
 _run_iso() {
+    iso_file="$1"
     qemu_running=true
-    run_archiso -u -i "${out_dir}/luminos-main-${date_today}-x86_64.iso"
+    if [[ -z "${iso_file}" ]]; then
+        run_archiso -u -i "${out_dir}/luminos-main-${date_today}-x86_64.iso"
+    else
+        run_archiso -u -i "${iso_file}"
+    fi
 }
 
-while getopts 'o:rTh?' arg; do
+while getopts 'o:r:Th?' arg; do
     case "${arg}" in
         T) override_work_dir="/tmp/archiso-tmp" ;;
         o) override_out_dir="${OPTARG}" ;;
-        r) _run_iso ;;
+        r) _run_iso "${OPTARG}" ;;
         h|?) _usage 0 ;;
         *)
             echo "[makeiso] Invalid argument '${arg}'" 0

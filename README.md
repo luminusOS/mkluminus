@@ -56,7 +56,7 @@ For build in /tmp files to use the memory space and fast build, type
 
 When complete, the .iso file will be in the ./out directory by default, you can also change this with
 
-    sudo sh makeiso -o '/out_directory_here'
+    sudo sh makeiso -o "/out_directory_here"
 
 For more options in build
 
@@ -66,6 +66,6 @@ For more options in build
 
 When complete the build, for test the ISO, you can use this simple command
 
-    sh makeiso -r
+    sh makeiso -r "file_name.iso"
 
 And a new instance of QEMU is open for testing. You can also use the VirtualBox too.
