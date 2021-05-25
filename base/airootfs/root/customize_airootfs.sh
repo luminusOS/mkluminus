@@ -21,3 +21,6 @@ for app in "${apps[@]}"; do
 		sed -i '$s/$/\nNoDisplay=true/' "$adir/$app"
 	fi
 done
+
+# Remove archlinux logo icons
+rm -r /usr/share/pixmaps/archlinux*
