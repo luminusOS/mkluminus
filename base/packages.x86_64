@@ -40,7 +40,6 @@ intel-ucode
 bash-completion
 calamares
 firefox
-firewalld
 ffmpegthumbs
 gamemode
 libreoffice-fresh
@@ -49,10 +48,12 @@ pipewire
 pipewire-pulse
 powerline
 reflector
+ufw
 vlc
 
 # Desktop Environment
 dolphin
+gwenview
 kdialog
 kimageformats
 konsole
