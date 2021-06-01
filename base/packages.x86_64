@@ -28,7 +28,7 @@ nilfs-utils
 nmap
 rsync
 sudo
-syslinux
+#syslinux
 systemd-resolvconf
 zsh
 
@@ -47,6 +47,7 @@ os-prober
 pipewire
 pipewire-pulse
 powerline
+quota-tools
 reflector
 ufw
 vlc
