@@ -26,9 +26,10 @@ mtools
 nfs-utils
 nilfs-utils
 nmap
+pv
 rsync
 sudo
-#syslinux
+syslinux
 systemd-resolvconf
 zsh
 
