@@ -47,6 +47,7 @@ libreoffice-fresh
 os-prober
 pipewire
 pipewire-pulse
+pipewire-alsa
 powerline
 quota-tools
 reflector
@@ -54,8 +55,10 @@ ufw
 vlc
 
 # Desktop Environment
+ark
 dolphin
 gwenview
+kcalc
 kdialog
 keepassxc
 kimageformats
