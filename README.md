@@ -17,14 +17,11 @@ Focus on what matters. Based on <a href="https://www.archlinux.org">Arch Linux</
 
 ## Screenshots
 
-<p align="center">
-<img src="./docs/images/screenshot/1.png" alt="Screenshot 1">
-</p>
-<p align="center">
-<img src="./docs/images/screenshot/2.png" alt="Screenshot 2">
-</p>
-<p align="center">
-<img src="./docs/images/screenshot/3.png" alt="Screenshot 3">
+<p float="left" align="center">
+  <img src="./docs/images/screenshot/1.png" width="48%" />
+  <img src="./docs/images/screenshot/2.png" width="48%" />
+  <img src="./docs/images/screenshot/3.png" width="48%" />
+  <img src="./docs/images/screenshot/4.png" width="48%" />
 </p>
 
 ## Requirements
