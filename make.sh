@@ -20,6 +20,7 @@ usage: build.sh [options]
   options:
      -h               This message
      -T               Use /tmp folder to work directory
+     -r               Select a iso file name to run
      -r               Run latest builded iso
      -o               Change output iso directory
 
@@ -30,9 +31,9 @@ ENDUSAGETEXT
 }
 
 _config_iso() {
-    echo "[makeiso] Checking dependencies..."
+    echo "[make] Checking dependencies..."
     if [[ ! -f "/usr/bin/mkarchiso" ]]; then
-        echo "[makeiso] ERROR: package 'archiso' not found."
+        echo "[make] ERROR: package 'archiso' not found."
         exit 1
     fi
     if [[ -v override_work_dir ]]; then
@@ -48,8 +49,8 @@ _build_iso() {
     # Necessary for rebuild the iso with base configurations if have any changes.
     # See https://wiki.archlinux.org/index.php/Archiso#Removal_of_work_directory
     if [ -d "${work_dir}" ]; then
-        echo "[makeiso] Deleting work folder..."
-        echo "[makeiso] Succesfully deleted $(rm -rfv "${work_dir}" | wc -l) files"
+        echo "[make] Deleting work folder..."
+        echo "[make] Succesfully deleted $(rm -rfv "${work_dir}" | wc -l) files"
     fi
     exec mkarchiso -v -w "${work_dir}" -o "${out_dir}" "${base_path}/base"
 }
@@ -57,21 +58,23 @@ _build_iso() {
 _run_iso() {
     iso_file="$1"
     qemu_running=true
-    if [[ -z "${iso_file}" ]]; then
-        run_archiso -u -i "${out_dir}/luminos-main-${date_today}-x86_64.iso"
-    else
-        run_archiso -u -i "${iso_file}"
-    fi
+    run_archiso -u -i "${iso_file}"
 }
 
-while getopts 'o:r:Th?' arg; do
+_run_local_iso() {
+    qemu_running=true
+    run_archiso -u -i "${out_dir}/luminos-main-${date_today}-x86_64.iso"
+}
+
+while getopts 'o:r:RTh?' arg; do
     case "${arg}" in
         T) override_work_dir="/tmp/archiso-tmp" ;;
+        R) _run_local_iso ;;
         o) override_out_dir="${OPTARG}" ;;
         r) _run_iso "${OPTARG}" ;;
         h|?) _usage 0 ;;
         *)
-            echo "[makeiso] Invalid argument '${arg}'" 0
+            echo "[make] Invalid argument '${arg}'" 0
             _usage 1
             ;;
     esac
