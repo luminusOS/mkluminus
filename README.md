@@ -5,10 +5,10 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Maintained%3F-Yes-green?style=flat-square">
-  <img src="https://img.shields.io/github/license/luminosystem/makeiso?style=flat-square">
-  <img src="https://img.shields.io/github/stars/luminosystem/makeiso?style=flat-square">
-  <img src="https://img.shields.io/github/forks/luminosystem/makeiso?color=teal&style=flat-square">
-  <img src="https://img.shields.io/github/issues/luminosystem/makeiso?color=violet&style=flat-square">
+  <img src="https://img.shields.io/github/license/luminosystem/make.sh?style=flat-square">
+  <img src="https://img.shields.io/github/stars/luminosystem/make.sh?style=flat-square">
+  <img src="https://img.shields.io/github/forks/luminosystem/make.sh?color=teal&style=flat-square">
+  <img src="https://img.shields.io/github/issues/luminosystem/make.sh?color=violet&style=flat-square">
 </p>
 
 <p align="center">
@@ -38,31 +38,31 @@ You need install these packages to build the ISO.
 
 Get the source code.
 
-    git clone https://github.com/luminosystem/makeiso.git
-    cd makeiso
+    git clone https://github.com/luminosystem/make.git
+    cd make.sh
 
 ## Build
 
 Just type the command
 
-    sudo sh makeiso
+    sudo sh make.sh
 
 For build in /tmp files to use the memory space and fast build, type
 
-    sudo sh makeiso -T
+    sudo sh make.sh -T
 
 When complete, the .iso file will be in the ./out directory by default, you can also change this with
 
-    sudo sh makeiso -o "/out_directory_here"
+    sudo sh make.sh -o "/out_directory_here"
 
 For more options in build
 
-    sh makeiso -h
+    sh make.sh -h
 
 ## Testing
 
 When complete the build, for test the ISO, you can use this simple command
 
-    sh makeiso -r "file_name.iso"
+    sh make.sh -r "file_name.iso"
 
 And a new instance of QEMU is open for testing. You can also use the VirtualBox too.
