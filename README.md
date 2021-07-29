@@ -5,10 +5,10 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Maintained%3F-Yes-green?style=flat-square">
-  <img src="https://img.shields.io/github/license/luminosystem/make.sh?style=flat-square">
-  <img src="https://img.shields.io/github/stars/luminosystem/make.sh?style=flat-square">
-  <img src="https://img.shields.io/github/forks/luminosystem/make.sh?color=teal&style=flat-square">
-  <img src="https://img.shields.io/github/issues/luminosystem/make.sh?color=violet&style=flat-square">
+  <img src="https://img.shields.io/github/license/LuminOSx/make?style=flat-square">
+  <img src="https://img.shields.io/github/stars/LuminOSx/make?style=flat-square">
+  <img src="https://img.shields.io/github/forks/LuminOSx/make?color=teal&style=flat-square">
+  <img src="https://img.shields.io/github/issues/LuminOSx/make?color=violet&style=flat-square">
 </p>
 
 <p align="center">
@@ -38,7 +38,7 @@ You need install these packages to build the ISO.
 
 Get the source code.
 
-    git clone https://github.com/luminosystem/make.git
+    git clone https://github.com/LuminOSx/make.git
     cd make.sh
 
 ## Build
