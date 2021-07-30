@@ -58,12 +58,12 @@ _build_iso() {
 _run_iso() {
     iso_file="$1"
     qemu_running=true
-    run_archiso -u -i "${iso_file}"
+    sh "scripts/qemu.sh" -u -i "${iso_file}"
 }
 
 _run_local_iso() {
     qemu_running=true
-    run_archiso -u -i "${out_dir}/luminos-main-${date_today}-x86_64.iso"
+    sh "scripts/qemu.sh" -u -i "${out_dir}/luminos-main-${date_today}-x86_64.iso"
 }
 
 while getopts 'o:r:RTh?' arg; do
