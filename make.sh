@@ -9,12 +9,7 @@ out_dir="${base_path}/out"
 date_today="$( date +'%Y.%m.%d' )"
 qemu_running=false
 
-# mkarchiso -v -w /path/to/work_dir -o /path/to/out_dir /path/to/profile/
-# find . -type f -print0 | xargs -0 dos2unix
-# chmod -R 755 work/
-# ln -sfn /usr/lib/systemd/system/sddm.service display-manager.service
-
-_usage() {
+usage() {
     IFS='' read -r -d '' usagetext <<ENDUSAGETEXT || true
 usage: build.sh [options]
   options:
@@ -30,21 +25,15 @@ ENDUSAGETEXT
     exit "${1}"
 }
 
-_config_iso() {
+config_iso() {
     echo "[make] Checking dependencies..."
     if [[ ! -f "/usr/bin/mkarchiso" ]]; then
         echo "[make] ERROR: package 'archiso' not found."
         exit 1
     fi
-    if [[ -v override_work_dir ]]; then
-        work_dir="$override_work_dir"
-    fi
-    if [[ -v override_out_dir ]]; then
-        out_dir="$override_out_dir"
-    fi
 }
 
-_build_iso() {
+build_iso() {
     # Check if work_dir exists and delete then
     # Necessary for rebuild the iso with base configurations if have any changes.
     # See https://wiki.archlinux.org/index.php/Archiso#Removal_of_work_directory
@@ -55,34 +44,42 @@ _build_iso() {
     exec mkarchiso -v -w "${work_dir}" -o "${out_dir}" "${base_path}/base"
 }
 
-_run_iso() {
+run_iso() {
     iso_file="$1"
     qemu_running=true
-    sh "scripts/qemu.sh" -u -i "${iso_file}"
+    sh scripts/qemu.sh -u -i "${iso_file}"
 }
 
-_run_local_iso() {
+run_local_iso() {
     qemu_running=true
-    sh "scripts/qemu.sh" -u -i "${out_dir}/luminos-main-${date_today}-x86_64.iso"
+    sh scripts/qemu.sh -u -i "${out_dir}/luminos-main-${date_today}-x86_64.iso"
 }
 
 while getopts 'o:r:RTh?' arg; do
     case "${arg}" in
-        T) override_work_dir="/tmp/archiso-tmp" ;;
-        R) _run_local_iso ;;
-        o) override_out_dir="${OPTARG}" ;;
-        r) _run_iso "${OPTARG}" ;;
-        h|?) _usage 0 ;;
+        T) 
+            work_dir="/tmp/archiso-tmp"
+            ;;
+        R) 
+            run_local_iso 
+            ;;
+        o) 
+            out_dir="${OPTARG}"
+            ;;
+        r) 
+            run_iso "${OPTARG}" 
+            ;;
+        h|?) usage 0 ;;
         *)
             echo "[make] Invalid argument '${arg}'" 0
-            _usage 1
+            usage 1
             ;;
     esac
 done
 
 if [ "$qemu_running" = false ] ; then
-    _config_iso
-    _build_iso
+    config_iso
+    build_iso
 fi
 
 exit 0
