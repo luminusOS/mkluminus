@@ -1,14 +1,14 @@
 
 <p align="center">
-<a href="https://luminos.github.io"><img src="./docs/images/logo.png" height="150" width="150" alt="LuminOS"></a>
+<a href="https://luminusos.github.io"><img src="./docs/images/logo.png" height="150" width="150" alt="LuminOS"></a>
 </p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Maintained%3F-Yes-green?style=flat-square">
-  <img src="https://img.shields.io/github/license/LuminOSx/make?style=flat-square">
-  <img src="https://img.shields.io/github/stars/LuminOSx/make?style=flat-square">
-  <img src="https://img.shields.io/github/forks/LuminOSx/make?color=teal&style=flat-square">
-  <img src="https://img.shields.io/github/issues/LuminOSx/make?color=violet&style=flat-square">
+  <img src="https://img.shields.io/github/license/luminusOS/mkluminus?style=flat-square">
+  <img src="https://img.shields.io/github/stars/luminusOS/mkluminus?style=flat-square">
+  <img src="https://img.shields.io/github/forks/luminusOS/mkluminus?color=teal&style=flat-square">
+  <img src="https://img.shields.io/github/issues/luminusOS/mkluminus?color=violet&style=flat-square">
 </p>
 
 <p align="center">
@@ -38,7 +38,7 @@ You need install these packages to build the ISO.
 
 Get the source code.
 
-    git clone https://github.com/LuminOSx/make.git
+    git clone https://github.com/luminusOS/mkluminus.git
     cd make.sh
 
 ## Build
