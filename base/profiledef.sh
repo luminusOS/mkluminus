@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC2034
 
-iso_name="luminos-main"
-iso_label="LUMINOS_$(date +%Y%m)"
-iso_publisher="LuminOS Linux <https://www.archlinux.org>"
-iso_application="LuminOS Linux main"
+iso_name="luminus-main"
+iso_label="LUMINUS_$(date +%Y%m)"
+iso_publisher="Luminus OS Linux <https://luminusos.github.io/>"
+iso_application="Luminus OS Linux main"
 iso_version="$(date +%Y.%m.%d)"
 install_dir="arch"
 buildmodes=('iso')

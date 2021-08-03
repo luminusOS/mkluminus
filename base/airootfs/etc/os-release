@@ -1,11 +1,11 @@
-NAME="LuminOS"
+NAME="Luminus"
 ID=arch
 ID_LIKE=arch
 BUILD_ID=rolling
-PRETTY_NAME="LuminOS"
+PRETTY_NAME="Luminus"
 ANSI_COLOR="20;2;20;222;202"
-HOME_URL="https://luminosx.github.io/"
+HOME_URL="https://luminusos.github.io/"
 DOCUMENTATION_URL="https://wiki.archlinux.org/"
 SUPPORT_URL="https://bbs.archlinux.org/"
-BUG_REPORT_URL="https://github.com/LuminOSx/makeiso/issues"
-LOGO=luminos
+BUG_REPORT_URL="https://github.com/luminusOS/mkluminus/issues"
+LOGO=luminus
