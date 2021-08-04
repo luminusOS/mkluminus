@@ -52,7 +52,7 @@ run_iso() {
 
 run_local_iso() {
     qemu_running=true
-    sh scripts/qemu.sh -u -i "${out_dir}/luminos-main-${date_today}-x86_64.iso"
+    sh scripts/qemu.sh -u -i "${out_dir}/luminus-main-${date_today}-x86_64.iso"
 }
 
 while getopts 'o:r:RTh?' arg; do
