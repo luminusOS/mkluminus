@@ -73,6 +73,10 @@ spectacle
 
 # Fonts
 adobe-source-sans-fonts
+noto-fonts
+noto-fonts-cjk
+noto-fonts-emoji
+noto-fonts-extra
 powerline-fonts
 ttf-roboto
 
