@@ -41,7 +41,7 @@ build_iso() {
         echo "[make] Deleting work folder..."
         echo "[make] Succesfully deleted $(rm -rfv "${work_dir}" | wc -l) files"
     fi
-    exec mkarchiso -v -w "${work_dir}" -o "${out_dir}" "${base_path}/base"
+    exec scripts/mkarchiso.sh -v -w "${work_dir}" -o "${out_dir}" "${base_path}/base"
 }
 
 run_iso() {
