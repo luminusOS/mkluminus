@@ -1,0 +1,30 @@
+[General]
+ColorScheme=Orchiis
+Name=Orchiis
+
+[Plugins]
+blurEnabled=true
+highlightwindowEnabled=true
+contrastEnabled=false
+slidebackEnabled=true
+
+[Desktops]
+Name_1=Desktop 1
+Name_2=Desktop 2
+Number=2
+Rows=2
+
+[Effect-Blur]
+BlurStrength=8
+NoiseStrength=7
+
+[Windows]
+Placement=Centered
+
+[org.kde.kdecoration2]
+BorderSize=None
+BorderSizeAuto=false
+ButtonsOnLeft=M
+ButtonsOnRight=IAX
+library=org.kde.kwin.aurorae
+theme=__aurorae__svg__Orchiis
