@@ -108,7 +108,7 @@ make_packages() {
     print_msg "Installing packages to '${pacstrap_dir}/'..."
 
     local packages_from_file=()
-    local package_files="$(ls ${base_path}/packages/*.pkgs)"
+    local package_files="$(ls ${base_path}/packages/*.pkglist)"
 
     for pkg_file in ${package_files}; do
         mapfile -t packages_from_file < <(sed '/^[[:blank:]]*#.*/d;s/#.*//;/^[[:blank:]]*$/d' "${pkg_file}")
