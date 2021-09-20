@@ -12,19 +12,19 @@ export LC_ALL="C"
 export SOURCE_DATE_EPOCH="${SOURCE_DATE_EPOCH:-"$(date +%s)"}"
 
 # ISO configuration variables
-iso_name="luminus-main"
+iso_name="luminus-$(git branch --show-current)"
 iso_label="LUMINUS_$(date +%Y%m)"
-iso_publisher="Luminus OS Linux <https://luminusos.github.io/>"
-iso_application="Luminus OS Linux main"
+iso_publisher="Luminus OS <https://luminusos.github.io/>"
+iso_application="Luminus OS"
 iso_version="$(date +%Y.%m.%d)"
 arch="x86_64"
-install_dir="lum"
 
 # build.sh configuration variables
 packages=()
 base_path="$( cd "$( dirname "$0" )" && pwd )"
 datetime="$(date '+%d/%m/%Y %H:%M:%S')"
 work_dir="/tmp/luminus-build-iso" #"${base_path}/work"
+install_dir="luminus"
 isofs_dir="${work_dir}/iso"
 pacstrap_dir="${work_dir}/${arch}/airootfs"
 out_dir="${base_path}/out"
@@ -46,21 +46,21 @@ print_msg() {
 
 # Set up custom pacman.conf with custom cache and pacman hook directories.
 make_pacman_conf() {
-    local _cache_dirs _system_cache_dirs _profile_cache_dirs
+    local cache_dirs system_cache_dirs profile_cache_dirs
     pacman_conf="$(realpath -- "$pacman_conf")"
-    _system_cache_dirs="$(pacman-conf CacheDir| tr '\n' ' ')"
-    _profile_cache_dirs="$(pacman-conf --config "${pacman_conf}" CacheDir| tr '\n' ' ')"
+    system_cache_dirs="$(pacman-conf CacheDir| tr '\n' ' ')"
+    profile_cache_dirs="$(pacman-conf --config "${pacman_conf}" CacheDir| tr '\n' ' ')"
 
     # Only use the profile's CacheDir, if it is not the default and not the same as the system cache dir.
-    if [[ "${_profile_cache_dirs}" != "/var/cache/pacman/pkg" ]] && \
-        [[ "${_system_cache_dirs}" != "${_profile_cache_dirs}" ]]; then
-        _cache_dirs="${_profile_cache_dirs}"
+    if [[ "${profile_cache_dirs}" != "/var/cache/pacman/pkg" ]] && \
+        [[ "${system_cache_dirs}" != "${profile_cache_dirs}" ]]; then
+        _cache_dirs="${profile_cache_dirs}"
     else
-        _cache_dirs="${_system_cache_dirs}"
+        _cache_dirs="${system_cache_dirs}"
     fi
 
     print_msg "Copying custom pacman.conf to work directory..."
-    print_msg "Using pacman CacheDir: ${_cache_dirs}"
+    print_msg "Using pacman CacheDir: ${cache_dirs}"
     # take the profile pacman.conf and strip all settings that would break in chroot when using pacman -r
     # append CacheDir and HookDir to [options] section
     # HookDir is *always* set to the airootfs' override directory
@@ -122,7 +122,7 @@ make_packages() {
 }
 
 make_version() {
-    local _os_release
+    local os_release
 
     print_msg "Creating version files..."
     # Write version file to system installation dir
@@ -138,9 +138,9 @@ make_version() {
         > "${isofs_dir}/${install_dir}/grubenv"
 
     # Append IMAGE_ID & IMAGE_VERSION to os-release
-    _os_release="$(realpath -- "${pacstrap_dir}/etc/os-release")"
+    os_release="$(realpath -- "${pacstrap_dir}/etc/os-release")"
     if [[ ! -e "${pacstrap_dir}/etc/os-release" && -e "${pacstrap_dir}/usr/lib/os-release" ]]; then
-        _os_release="$(realpath -- "${pacstrap_dir}/usr/lib/os-release")"
+        os_release="$(realpath -- "${pacstrap_dir}/usr/lib/os-release")"
     fi
     if [[ "${_os_release}" != "${pacstrap_dir}"* ]]; then
         print_msg "os-release file '${_os_release}' is outside of valid path."
@@ -213,7 +213,7 @@ make_efibootimg() {
     mmd -i "${work_dir}/efiboot.img" ::/EFI ::/EFI/BOOT
 }
 
-make_uefi_boot() {
+make_uefi_bootmode() {
     local _file efiboot_imgsize
     local _available_ucodes=()
     print_msg "Setting up systemd-boot for UEFI booting..."
@@ -346,7 +346,7 @@ mkchecksum() {
 mkairootfs_squashfs() {
     local image_path="${isofs_dir}/${install_dir}/${arch}/airootfs.sfs"
 
-    [[ -e "${pacstrap_dir}" ]] || _msg_error "The path '${pacstrap_dir}' does not exist" 1
+    [[ -e "${pacstrap_dir}" ]] || print_msg "The path '${pacstrap_dir}' does not exist" 1
 
     install -d -m 0755 -- "${isofs_dir}/${install_dir}/${arch}"
     print_msg "Creating SquashFS image, this may take some time..."
@@ -407,7 +407,7 @@ main() {
     make_version
     make_customize_airootfs
     make_pkglist
-    make_uefi_boot
+    make_uefi_bootmode
     cleanup_pacstrap_dir
     mkairootfs_squashfs
     build_iso_image
