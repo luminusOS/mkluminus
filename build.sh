@@ -23,8 +23,8 @@ arch="x86_64"
 packages=()
 base_path="$( cd "$( dirname "$0" )" && pwd )"
 datetime="$(date '+%d/%m/%Y %H:%M:%S')"
-work_dir="/tmp/luminus-build-iso" #"${base_path}/work"
 install_dir="luminus"
+work_dir="${base_path}/work"
 isofs_dir="${work_dir}/iso"
 pacstrap_dir="${work_dir}/${arch}/airootfs"
 out_dir="${base_path}/out"
@@ -36,12 +36,41 @@ declare -A file_permissions=(
 )
 # adapted from GRUB_EARLY_INITRD_LINUX_STOCK in https://git.savannah.gnu.org/cgit/grub.git/tree/util/grub-mkconfig.in
 readonly ucodes=('intel-uc.img' 'intel-ucode.img' 'amd-uc.img' 'amd-ucode.img' 'early_ucode.cpio' 'microcode.cpio')
+readonly dependencies=('pacman-conf' 'pacstrap' 'pacman' 'mkfs.fat' 'mksquashfs' 'xorriso')
 
+usage() {
+    IFS='' read -r -d '' usagetext <<ENDUSAGETEXT || true
+usage: build.sh [options]
+  options:
+     -h               This message
+     -w               Change work directory
+     -o               Change output iso directory
+Example:
+    Build an Luminus ISO image:
+    $ build.sh -o "~/luminus-iso" -w "~/luminus-work"
+ENDUSAGETEXT
+    printf '%s' "${usagetext}"
+    exit "${1}"
+}
 
 # $1: message string
 print_msg() {
     local message="${1}"
     printf '[%s]: %s\n' "${datetime}" "${message}" >&2
+}
+
+# Verify necessary dependencies are installed
+verify_dependencies() {
+    local missing_dependencies=()
+    for dependency in "${dependencies[@]}"; do
+        if ! command -v "${dependency}" >/dev/null 2>&1; then
+            missing_dependencies+=("${dependency}")
+        fi
+    done
+    if [[ "${#missing_dependencies[@]}" -gt 0 ]]; then
+        print_msg "Missing dependencies: ${missing_dependencies[*]}"
+        exit 1
+    fi
 }
 
 # Set up custom pacman.conf with custom cache and pacman hook directories.
@@ -54,9 +83,9 @@ make_pacman_conf() {
     # Only use the profile's CacheDir, if it is not the default and not the same as the system cache dir.
     if [[ "${profile_cache_dirs}" != "/var/cache/pacman/pkg" ]] && \
         [[ "${system_cache_dirs}" != "${profile_cache_dirs}" ]]; then
-        _cache_dirs="${profile_cache_dirs}"
+        cache_dirs="${profile_cache_dirs}"
     else
-        _cache_dirs="${system_cache_dirs}"
+        cache_dirs="${system_cache_dirs}"
     fi
 
     print_msg "Copying custom pacman.conf to work directory..."
@@ -66,7 +95,7 @@ make_pacman_conf() {
     # HookDir is *always* set to the airootfs' override directory
     # see `man 8 pacman` for further info
     pacman-conf --config "${pacman_conf}" | \
-        sed "/CacheDir/d;/DBPath/d;/HookDir/d;/LogFile/d;/RootDir/d;/\[options\]/a CacheDir = ${_cache_dirs}
+        sed "/CacheDir/d;/DBPath/d;/HookDir/d;/LogFile/d;/RootDir/d;/\[options\]/a CacheDir = ${cache_dirs}
         /\[options\]/a HookDir = ${pacstrap_dir}/etc/pacman.d/hooks/" > "${work_dir}/pacman.conf"
 }
 
@@ -142,11 +171,11 @@ make_version() {
     if [[ ! -e "${pacstrap_dir}/etc/os-release" && -e "${pacstrap_dir}/usr/lib/os-release" ]]; then
         os_release="$(realpath -- "${pacstrap_dir}/usr/lib/os-release")"
     fi
-    if [[ "${_os_release}" != "${pacstrap_dir}"* ]]; then
-        print_msg "os-release file '${_os_release}' is outside of valid path."
+    if [[ "${os_release}" != "${pacstrap_dir}"* ]]; then
+        print_msg "os-release file '${os_release}' is outside of valid path."
     else
-        [[ ! -e "${_os_release}" ]] || sed -i '/^IMAGE_ID=/d;/^IMAGE_VERSION=/d' "${_os_release}"
-        printf 'IMAGE_ID=%s\nIMAGE_VERSION=%s\n' "${iso_name}" "${iso_version}" >> "${_os_release}"
+        [[ ! -e "${os_release}" ]] || sed -i '/^IMAGE_ID=/d;/^IMAGE_VERSION=/d' "${os_release}"
+        printf 'IMAGE_ID=%s\nIMAGE_VERSION=%s\n' "${iso_name}" "${iso_version}" >> "${os_release}"
     fi
 }
 
@@ -390,10 +419,12 @@ build_iso_image() {
     du -h -- "${out_dir}/${image_name}"
 }
 
-main() {
+build() {
     # Check if work_dir exists and delete then
     # Necessary for rebuild the iso with base configurations if have any changes.
     # See https://wiki.archlinux.org/index.php/Archiso#Removal_of_work_directory
+    echo "${work_dir}"
+    echo "${isofs_dir}"
     if [ -d "${work_dir}" ]; then
         print_msg "Deleting work folder..."
         print_msg "Succesfully deleted $(rm -rfv "${work_dir}" | wc -l) files"
@@ -401,6 +432,7 @@ main() {
     
     install -d -- "${work_dir}"
 
+    verify_dependencies
     make_pacman_conf
     make_custom_airootfs
     make_packages
@@ -413,4 +445,24 @@ main() {
     build_iso_image
 }
 
-main
+while getopts 'o:w:h?' arg; do
+    case "${arg}" in
+        o) 
+            out_dir="${OPTARG}"
+            ;;
+        w)
+            work_dir="${OPTARG}"
+            isofs_dir="${OPTARG}/iso"
+            pacstrap_dir="${OPTARG}/${arch}/airootfs"
+            ;;
+        h|\?) usage 0 ;;
+        *)
+            echo "[make] Invalid argument '${arg}'" 0
+            usage 1
+            ;;
+    esac
+done
+
+build
+
+exit 0
