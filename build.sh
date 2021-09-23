@@ -41,13 +41,14 @@ usage() {
     IFS='' read -r -d '' usagetext <<ENDUSAGETEXT || true
 usage: build.sh [options]
   options:
-     -h               This message
-     -d               Delete work directory if exists
-     -w               Change work directory
-     -o               Change output iso directory
+     -h                 This message
+     -d                 Delete work directory if exists
+     -s                 Silent build
+     -o [directory]     Change output iso directory
+     -w [directory]     Change work directory
 Example:
     Build an Luminus ISO image:
-    $ build.sh -o "~/luminus-iso" -w "~/luminus-work" -d
+    $ build.sh -o "~/luminus-iso" -w "~/luminus-work" -d -s
 ENDUSAGETEXT
     printf '%s' "${usagetext}"
     exit "${1}"
