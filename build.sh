@@ -161,7 +161,7 @@ make_packages() {
     done
 
     # Unset TMPDIR to work around https://bugs.archlinux.org/task/70580
-    if [[ "${silent_debug}" = "yes" ]]; then
+    if [[ "${silent_build}" = "yes" ]]; then
         env -u TMPDIR pacstrap -C "${work_dir}/pacman.conf" -c -G -M -- "${pacstrap_dir}" "${packages[@]}" &> /dev/null
     else
         env -u TMPDIR pacstrap -C "${work_dir}/pacman.conf" -c -G -M -- "${pacstrap_dir}" "${packages[@]}"
@@ -256,7 +256,7 @@ make_efibootimg() {
     # https://lists.gnu.org/archive/html/grub-devel/2019-04/msg00099.html
     [[ -e "${work_dir}/efiboot.img" ]] && rm -f -- "${work_dir}/efiboot.img"
     print_msg "Creating FAT image of size: ${imgsize} KiB..." "info"
-    if [[ silent_debug == "yes" ]]; then
+    if [[ silent_build == "yes" ]]; then
         mkfs.fat -C -n LUM_ISO_EFI "${work_dir}/efiboot.img" "${imgsize}" &> /dev/null
     else
         mkfs.fat -C -v -n LUM_ISO_EFI "${work_dir}/efiboot.img" "${imgsize}" #2>&1 | tee -a "${log_file}"
@@ -404,7 +404,7 @@ mkairootfs_squashfs() {
     rm -f -- "${image_path}"
     install -d -m 0755 -- "${isofs_dir}/${install_dir}/${arch}"
     print_msg "Creating SquashFS image, this may take some time..." "info"
-    if [[ "${silent_debug}" = "yes" ]]; then
+    if [[ "${silent_build}" = "yes" ]]; then
         mksquashfs "${pacstrap_dir}" "${image_path}" -noappend -no-progress > /dev/null
     else
         mksquashfs "${pacstrap_dir}" "${image_path}" -noappend
@@ -418,7 +418,7 @@ build_iso_image() {
     local image_name="${iso_name}-${iso_version}-${arch}.iso"
 
     [[ -d "${out_dir}" ]] || install -d -- "${out_dir}"
-    [[ "${silent_debug}" == "yes" ]] && xorrisofs_options+=('-quiet')
+    [[ "${silent_build}" == "yes" ]] && xorrisofs_options+=('-quiet')
 
     # The ISO will not contain a GPT partition table, so to be able to reference efiboot.img, place it as a
     # file inside the ISO 9660 file system
@@ -474,7 +474,7 @@ build() {
 }
 
 delete_work_dir="no"
-silent_debug="no"
+silent_build="no"
 
 while getopts 'o:w:sdh?' arg; do
     case "${arg}" in
@@ -485,7 +485,7 @@ while getopts 'o:w:sdh?' arg; do
             out_dir="${OPTARG}"
             ;;
         s)
-            silent_debug="yes"
+            silent_build="yes"
             ;;
         w)
             work_dir="${OPTARG}"
