@@ -32,37 +32,46 @@ For your system
 
 You need install these packages to build the ISO.
 
- - Archiso >= 49-1
+ - Pacman
+ - Pacstrap
  - Git
  - QEMU
+ - mksquashfs
+ - xorriso
 
 Get the source code.
 
     git clone https://github.com/luminusOS/mkluminus.git
-    cd make.sh
+    cd mkluminus
 
 ## Build
 
 Just type the command
 
-    sudo sh make.sh
+    sudo sh build.sh
 
-For build in /tmp files to use the memory space and fast build, type
+For build with silent mode, just type
 
-    sudo sh make.sh -T
+    sudo sh build.sh -s
 
 When complete, the .iso file will be in the ./out directory by default, you can also change this with
 
-    sudo sh make.sh -o "/out_directory_here"
+    sudo sh build.sh -o "/out_directory_here"
+
+And use /tmp folder for work directory and build with a fast performance (Require min 10 GB in /tmp folder)
+
+    sudo sh build.sh -w "/tmp/luminus-build-iso"
+
+Tip
 
 For more options in build
 
-    sh make.sh -h
+    sh build.sh -h
 
 ## Testing
 
 When complete the build, for test the ISO, you can use this simple command
 
-    sh make.sh -r "file_name.iso"
+    sh scripts/qemu.sh -u -i "file_name.iso"
 
 And a new instance of QEMU is open for testing. You can also use the VirtualBox too.
