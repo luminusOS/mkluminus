@@ -257,7 +257,7 @@ make_efibootimg() {
     # https://lists.gnu.org/archive/html/grub-devel/2019-04/msg00099.html
     [[ -e "${work_dir}/efiboot.img" ]] && rm -f -- "${work_dir}/efiboot.img"
     print_msg "Creating FAT image of size: ${imgsize} KiB..." "info"
-    if [[ silent_build == "yes" ]]; then
+    if [[ "${silent_build}" == "yes" ]]; then
         mkfs.fat -C -n LUM_ISO_EFI "${work_dir}/efiboot.img" "${imgsize}" &> /dev/null
     else
         mkfs.fat -C -v -n LUM_ISO_EFI "${work_dir}/efiboot.img" "${imgsize}" #2>&1 | tee -a "${log_file}"
