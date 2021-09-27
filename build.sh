@@ -302,19 +302,19 @@ make_uefi_bootmode() {
     mcopy -i "${work_dir}/efiboot.img" \
         "${pacstrap_dir}/usr/share/refind/drivers_x64/ext4_x64.efi" ::/EFI/BOOT/drivers_x64/
 
-    mmd -i "${work_dir}/efiboot.img" ::/EFI/BOOT/icons ::/EFI/BOOT/fonts ::/EFI/BOOT/theme
+    mmd -i "${work_dir}/efiboot.img" ::/EFI/BOOT/icons ::/EFI/BOOT/fonts ::/EFI/BOOT/themes
     mcopy -i "${work_dir}/efiboot.img" \
         "${pacstrap_dir}/usr/share/refind/icons" ::/EFI/BOOT/
     mcopy -i "${work_dir}/efiboot.img" \
         "${pacstrap_dir}/usr/share/refind/fonts" ::/EFI/BOOT/
-    mcopy -i "${work_dir}/efiboot.img" \
-        "${base_path}/efiboot/theme" ::/EFI/BOOT/
         
-    mmd -i "${work_dir}/efiboot.img" ::/EFI/BOOT/theme/icons ::/EFI/BOOT/theme/fonts
+    mmd -i "${work_dir}/efiboot.img" ::/EFI/BOOT/themes/orchiis ::/EFI/BOOT/themes/orchiis/icons ::/EFI/BOOT/themes/orchiis/fonts
     mcopy -i "${work_dir}/efiboot.img" \
-        "${base_path}/efiboot/theme/icons" ::/EFI/BOOT/theme/
+        "${pacstrap_dir}/usr/share/refind/themes/orchiis" ::/EFI/BOOT/themes/
     mcopy -i "${work_dir}/efiboot.img" \
-        "${base_path}/efiboot/theme/fonts" ::/EFI/BOOT/theme/
+        "${pacstrap_dir}/usr/share/refind/themes/orchiis/fonts" ::/EFI/BOOT/themes/orchiis/
+    mcopy -i "${work_dir}/efiboot.img" \
+        "${pacstrap_dir}/usr/share/refind/themes/orchiis/icons" ::/EFI/BOOT/themes/orchiis/
 
     for _conf in "${base_path}/efiboot/"*".conf"; do
         sed "s|%ARCHISO_LABEL%|${iso_label}|g;
