@@ -283,6 +283,7 @@ make_uefi_bootmode() {
         "${pacstrap_dir}/usr/share/refind/drivers_x64/*.efi" \
         "${pacstrap_dir}/usr/share/refind/icons/" \
         "${pacstrap_dir}/usr/share/refind/fonts/" \
+        "${pacstrap_dir}/usr/share/refind/themes/" \
         "${pacstrap_dir}/usr/share/edk2-shell/x64/Shell_Full.efi" \
         "${base_path}/efiboot/" \
         "${pacstrap_dir}/boot/vmlinuz-"* \
