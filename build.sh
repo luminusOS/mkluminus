@@ -60,9 +60,6 @@ print_msg() {
     local type="${2:-}"
     local datetime="$(date '+%d/%m/%Y %H:%M:%S')"
     case "${type}" in
-    info)
-        printf '\e[1;32m%s\e[0m\n' "${datetime} [INFO] ${message}"
-        ;;
     warn)
         printf '\e[1;33m%s\e[0m\n' "${datetime} [WARN] ${message}"
         ;;
@@ -71,7 +68,7 @@ print_msg() {
         exit 1
         ;;
     *)
-        printf '\e[1;37m%s\e[0m\n' "${datetime} [UNKNOWN] ${message}"
+        printf '\e[1;37m%s\e[0m\n' "${datetime} [INFO] ${message}"
         ;;
     esac
 }
@@ -105,8 +102,8 @@ make_pacman_conf() {
         cache_dirs="${system_cache_dirs}"
     fi
 
-    print_msg "Copying custom pacman.conf to work directory..." "info"
-    print_msg "Using pacman CacheDir: ${cache_dirs}" "info"
+    print_msg "Copying custom pacman.conf to work directory..."
+    print_msg "Using pacman CacheDir: ${cache_dirs}"
     # take the profile pacman.conf and strip all settings that would break in chroot when using pacman -r
     # append CacheDir and HookDir to [options] section
     # HookDir is *always* set to the airootfs' override directory
@@ -124,7 +121,7 @@ make_custom_airootfs() {
     install -d -m 0755 -o 0 -g 0 -- "${pacstrap_dir}"
 
     if [[ -d "${base_path}/airootfs/" ]]; then
-        print_msg "Copying custom airootfs files..." "info"
+        print_msg "Copying custom airootfs files..."
         cp -af --no-preserve=ownership,mode -- "airootfs/." "${pacstrap_dir}"
         # Set ownership and mode for files and directories
         for filename in "${!file_permissions[@]}"; do
@@ -145,13 +142,13 @@ make_custom_airootfs() {
                 fi
             fi
         done
-        print_msg "Successfully maked custom airootfs!" "info"
+        print_msg "Successfully maked custom airootfs!"
     fi
 }
 
 # Install desired packages to the root file system
 make_packages() {
-    print_msg "Installing packages to '${pacstrap_dir}/'..." "info"
+    print_msg "Installing packages to '${pacstrap_dir}/'..."
 
     local packages_from_file=()
     local package_files="$(ls ${base_path}/packages/*.pkglist)"
@@ -168,13 +165,13 @@ make_packages() {
         env -u TMPDIR pacstrap -C "${work_dir}/pacman.conf" -c -G -M -- "${pacstrap_dir}" "${packages[@]}"
     fi
 
-    print_msg "Done! Packages installed successfully." "info"
+    print_msg "Done! Packages installed successfully."
 }
 
 make_version() {
     local os_release
 
-    print_msg "Creating version files..." "info"
+    print_msg "Creating version files..."
     # Write version file to system installation dir
     rm -f -- "${pacstrap_dir}/version"
     printf '%s\n' "${iso_version}" > "${pacstrap_dir}/version"
@@ -193,7 +190,7 @@ make_version() {
         os_release="$(realpath -- "${pacstrap_dir}/usr/lib/os-release")"
     fi
     if [[ "${os_release}" != "${pacstrap_dir}"* ]]; then
-        print_msg "os-release file '${os_release}' is outside of valid path." "info"
+        print_msg "os-release file '${os_release}' is outside of valid path."
     else
         [[ ! -e "${os_release}" ]] || sed -i '/^IMAGE_ID=/d;/^IMAGE_VERSION=/d' "${os_release}"
         printf 'IMAGE_ID=%s\nIMAGE_VERSION=%s\n' "${iso_name}" "${iso_version}" >> "${os_release}"
@@ -205,7 +202,7 @@ make_customize_airootfs() {
     local passwd=()
 
     if [[ -e "${base_path}/airootfs/etc/passwd" ]]; then
-        print_msg "Copying /etc/skel/* to user homes..." "info"
+        print_msg "Copying /etc/skel/* to user homes..."
         while IFS=':' read -a passwd -r; do
             # Only operate on UIDs in range 1000–59999
             (( passwd[2] >= 1000 && passwd[2] < 60000 )) || continue
@@ -227,7 +224,7 @@ make_customize_airootfs() {
     fi
 
     if [[ -e "${pacstrap_dir}/root/customize_airootfs.sh" ]]; then
-        print_msg "Running customize_airootfs.sh in '${pacstrap_dir}' chroot..." "info"
+        print_msg "Running customize_airootfs.sh in '${pacstrap_dir}' chroot..."
         print_msg "customize_airootfs.sh is deprecated! Support for it will be removed in a future archiso version." "warn"
         chmod -f -- +x "${pacstrap_dir}/root/customize_airootfs.sh"
         # Unset TMPDIR to work around https://bugs.archlinux.org/task/70580
@@ -237,7 +234,7 @@ make_customize_airootfs() {
 }
 
 make_pkglist() {
-    print_msg "Creating a list of installed packages on live-enviroment..." "info"
+    print_msg "Creating a list of installed packages on live-enviroment..."
     install -d -m 0755 -- "${isofs_dir}/${install_dir}"
     pacman -Q --sysroot "${pacstrap_dir}" > "${isofs_dir}/${install_dir}/pkglist.${arch}.txt"
 }
@@ -256,7 +253,7 @@ make_efibootimg() {
     # The FAT image must be created with mkfs.fat not mformat, as some systems have issues with mformat made images:
     # https://lists.gnu.org/archive/html/grub-devel/2019-04/msg00099.html
     [[ -e "${work_dir}/efiboot.img" ]] && rm -f -- "${work_dir}/efiboot.img"
-    print_msg "Creating FAT image of size: ${imgsize} KiB..." "info"
+    print_msg "Creating FAT image of size: ${imgsize} KiB..."
     if [[ "${silent_build}" == "yes" ]]; then
         mkfs.fat -C -n LUM_ISO_EFI "${work_dir}/efiboot.img" "${imgsize}" &> /dev/null
     else
@@ -270,7 +267,7 @@ make_efibootimg() {
 make_uefi_bootmode() {
     local _file efiboot_imgsize
     local _available_ucodes=()
-    print_msg "Setting up rEFInd for UEFI booting..." "info"
+    print_msg "Setting up rEFInd for UEFI booting..."
 
     for _file in "${ucodes[@]}"; do
         if [[ -e "${pacstrap_dir}/boot/${_file}" ]]; then
@@ -330,12 +327,12 @@ make_uefi_bootmode() {
             "${pacstrap_dir}/usr/share/edk2-shell/x64/Shell_Full.efi" ::/shellx64.efi
     fi
 
-    print_msg "Done! rEFInd set up for UEFI booting successfully." "info"
+    print_msg "Done! rEFInd set up for UEFI booting successfully."
 
     # Additionally set up system-boot in ISO 9660. This allows creating a medium for the live environment by using
     # manual partitioning and simply copying the ISO 9660 file system contents.
     # This is not related to El Torito booting and no firmware uses these files.
-    print_msg "Preparing an /EFI directory for the ISO 9660 file system..." "info"
+    print_msg "Preparing an /EFI directory for the ISO 9660 file system..."
     install -d -m 0755 -- "${isofs_dir}/EFI/BOOT"
 
     # edk2-shell based UEFI shell
@@ -347,7 +344,7 @@ make_uefi_bootmode() {
     # Copy kernel and initramfs to FAT image.
     # systemd-boot can only access files from the EFI system partition it was launched from.
     local ucode_image all_ucode_images=()
-    print_msg "Preparing kernel and initramfs for the FAT file system..." "info"
+    print_msg "Preparing kernel and initramfs for the FAT file system..."
     mmd -i "${work_dir}/efiboot.img" \
         "::/${install_dir}" "::/${install_dir}/boot" "::/${install_dir}/boot/${arch}"
     mcopy -i "${work_dir}/efiboot.img" "${pacstrap_dir}/boot/vmlinuz-"* \
@@ -364,7 +361,7 @@ make_uefi_bootmode() {
 
 # Cleanup airootfs
 cleanup_pacstrap_dir() {
-    print_msg "Cleaning up in pacstrap location..." "info"
+    print_msg "Cleaning up in pacstrap location..."
 
     # Delete all files in /boot
     [[ -d "${pacstrap_dir}/boot" ]] && find "${pacstrap_dir}/boot" -mindepth 1 -delete
@@ -387,7 +384,7 @@ cleanup_pacstrap_dir() {
 
 # Create checksum file for the rootfs image.
 mkchecksum() {
-    print_msg "Creating checksum file for self-test..." "info"
+    print_msg "Creating checksum file for self-test..."
     cd -- "${isofs_dir}/${install_dir}/${arch}"
     if [[ -e "${isofs_dir}/${install_dir}/${arch}/airootfs.sfs" ]]; then
         sha512sum airootfs.sfs > airootfs.sha512
@@ -405,7 +402,7 @@ mkairootfs_squashfs() {
     
     rm -f -- "${image_path}"
     install -d -m 0755 -- "${isofs_dir}/${install_dir}/${arch}"
-    print_msg "Creating SquashFS image, this may take some time..." "info"
+    print_msg "Creating SquashFS image, this may take some time..."
     if [[ "${silent_build}" = "yes" ]]; then
         mksquashfs "${pacstrap_dir}" "${image_path}" -noappend -no-progress > /dev/null
     else
@@ -434,7 +431,7 @@ build_iso_image() {
     '-e' 'EFI/IMG/efiboot.img'
     '-no-emul-boot')
 
-    print_msg "Creating ISO image..." "info"
+    print_msg "Creating ISO image..."
     xorriso -as mkisofs \
             -iso-level 3 \
             -full-iso9660-filenames \
@@ -448,6 +445,7 @@ build_iso_image() {
             "${xorrisofs_options[@]}" \
             -output "${out_dir}/${image_name}" \
             "${isofs_dir}/"
+    print_msg "ISO image created in "${out_dir}/${image_name}""
     du -h -- "${out_dir}/${image_name}"
 }
 
@@ -456,8 +454,8 @@ build() {
     # Necessary for rebuild the iso with base configurations if have any changes.
     # See https://wiki.archlinux.org/index.php/Archiso#Removal_of_work_directory
     if [[ -d "${work_dir}" && ${delete_work_dir} == "yes" ]]; then
-        print_msg "Deleting work folder..." "info"
-        print_msg "Succesfully deleted $(rm -rfv "${work_dir}" | wc -l) files" "info"
+        print_msg "Deleting work folder..."
+        print_msg "Succesfully deleted $(rm -rfv "${work_dir}" | wc -l) files"
     fi
     
     install -d -- "${work_dir}"
