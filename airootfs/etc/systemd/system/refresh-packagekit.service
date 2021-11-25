@@ -1,0 +1,12 @@
+[Unit]
+Description=Refresh PackageKit for Gnome Software
+Wants=packagekit.service
+After=packagekit.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/share/libalpm/scripts/systemd-hook update
+ExecStart=/bin/sh -c 'gdbus call --system --timeout 30 --dest org.freedesktop.PackageKit --object-path /org/freedesktop/PackageKit --method org.freedesktop.PackageKit.StateHasChanged posttrans > /dev/null'
+
+[Install]
+WantedBy=multi-user.target 
