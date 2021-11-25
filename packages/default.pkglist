@@ -1,3 +1,4 @@
+archlinux-appstream-data
 base
 crda
 dosfstools
@@ -22,6 +23,7 @@ mtools
 nfs-utils
 nilfs-utils
 nmap
+packagekit
 pv
 refind
 rsync
