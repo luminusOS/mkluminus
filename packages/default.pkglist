@@ -8,6 +8,7 @@ ethtool
 exfatprogs
 f2fs-tools
 fatresize
+flatpak
 fsarchiver
 fwupd
 hdparm
@@ -24,6 +25,7 @@ nfs-utils
 nilfs-utils
 nmap
 packagekit
+plocate
 pv
 refind
 rsync
