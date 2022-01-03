@@ -24,6 +24,19 @@ Focus on what matters. Based on <a href="https://www.archlinux.org">Arch Linux</
   <img src="./docs/images/screenshot/4.png" width="48%" />
 </p>
 
+## Features
+
+- Use GNOME Shell as default DE;
+- PipeWire and GameMode enabled by default;
+- Plymouth theme with BIOS logo on boot;
+- Use rEFInd as default boot loader with native theme;
+- Theme made for the system itself, maintaining a harmonious look between the apps;
+- GNOME default configurations to improve performance and usability;
+- Own installer for easy installation of the system;
+- Extensions made for usability of system and for the luminus;
+- Terminal with ZSH configured for better productivity;
+- And more...
+
 ## Requirements
 
 For your system
