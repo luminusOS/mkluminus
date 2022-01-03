@@ -223,14 +223,14 @@ make_customize_airootfs() {
         done < "${base_path}/airootfs/etc/passwd"
     fi
 
-    if [[ -e "${pacstrap_dir}/root/customize_airootfs.sh" ]]; then
-        print_msg "Running customize_airootfs.sh in '${pacstrap_dir}' chroot..."
-        print_msg "customize_airootfs.sh is deprecated! Support for it will be removed in a future archiso version." "warn"
-        chmod -f -- +x "${pacstrap_dir}/root/customize_airootfs.sh"
-        # Unset TMPDIR to work around https://bugs.archlinux.org/task/70580
-        eval -- env -u TMPDIR arch-chroot "${pacstrap_dir}" "/root/customize_airootfs.sh"
-        rm -- "${pacstrap_dir}/root/customize_airootfs.sh"
-    fi
+    for script in ${pacstrap_dir}/root/scripts/*.sh; do
+        if [[ -e "${script}" ]]; then
+            print_msg "Running '${script}' in chroot..."
+            chmod -f -- +x "${script}"
+            eval -- env -u TMPDIR arch-chroot "${pacstrap_dir}" "/root/scripts/$(basename -- $script)"
+            rm -- "${script}"
+        fi
+    done
 }
 
 make_pkglist() {
