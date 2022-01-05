@@ -329,6 +329,11 @@ make_uefi_bootmode() {
 
     print_msg "Done! rEFInd set up for UEFI booting successfully."
 
+    # Make kernel and initramfs available in the root system partition.
+    install -d -m 0755 -- "${isofs_dir}/${install_dir}/boot/${arch}"
+    install -m 0644 -- "${pacstrap_dir}/boot/initramfs-"*".img" "${isofs_dir}/${install_dir}/boot/${arch}/"
+    install -m 0644 -- "${pacstrap_dir}/boot/vmlinuz-"* "${isofs_dir}/${install_dir}/boot/${arch}/"
+
     # Additionally set up system-boot in ISO 9660. This allows creating a medium for the live environment by using
     # manual partitioning and simply copying the ISO 9660 file system contents.
     # This is not related to El Torito booting and no firmware uses these files.
