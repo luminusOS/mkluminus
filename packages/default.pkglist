@@ -29,6 +29,7 @@ plocate
 pv
 refind
 rsync
+squashfs-tools
 sudo
 syslinux
 systemd-resolvconf
