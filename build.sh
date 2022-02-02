@@ -426,14 +426,14 @@ build_iso_image() {
 
     # The ISO will not contain a GPT partition table, so to be able to reference efiboot.img, place it as a
     # file inside the ISO 9660 file system
-    install -d -m 0755 -- "${isofs_dir}/EFI/IMG"
-    cp -a -- "${work_dir}/efiboot.img" "${isofs_dir}/EFI/IMG/efiboot.img"
+    install -d -m 0755 -- "${isofs_dir}/EFI"
+    cp -a -- "${work_dir}/efiboot.img" "${isofs_dir}/EFI/efiboot.img"
     xorrisofs_options+=(
     '-partition_offset' '16'
     '-append_partition' '2' 'C12A7328-F81F-11D2-BA4B-00A0C93EC93B' "${work_dir}/efiboot.img"
     '-appended_part_as_gpt'
     '-eltorito-alt-boot' 
-    '-e' 'EFI/IMG/efiboot.img'
+    '-e' 'EFI/efiboot.img'
     '-no-emul-boot')
 
     print_msg "Creating ISO image..."
