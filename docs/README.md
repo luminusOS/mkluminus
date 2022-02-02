@@ -81,6 +81,16 @@ For more options in build
 
     sh build.sh -h
 
+## Docker
+
+Build the image with the above command as root user
+
+    DOCKER_BUILDKIT=1 docker build -t luminus/build:latest .
+
+After create the container with docker compose
+
+    docker compose -f docker/docker-compose.yml up
+
 ## Testing
 
 When complete the build, for test the ISO, you can use this simple command

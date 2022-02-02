@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  luminus:
+    security_opt:
+      - apparmor:unconfined
+    cap_add:
+      - SYS_ADMIN
+    image: "luminus/build:latest"
+    volumes:
+      - type: bind
+        source: /tmp
+        target: /luminus/out
+        read_only: false
