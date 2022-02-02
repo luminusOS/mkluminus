@@ -91,6 +91,8 @@ After create the container with docker compose
 
     docker compose -f docker/docker-compose.yml up
 
+The image ISO has save to /tmp folder
+
 ## Testing
 
 When complete the build, for test the ISO, you can use this simple command
