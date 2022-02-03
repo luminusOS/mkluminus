@@ -5,7 +5,7 @@ RUN echo 'Server = http://linorg.usp.br/archlinux/$repo/os/$arch' > /etc/pacman.
 
 # Install necessary packages
 RUN --mount=type=cache,sharing=locked,target=/var/cache/pacman \
-    pacman -Suy --noconfirm --needed base base-devel mkinitcpio lzop linux linux-firmware archiso git
+    pacman -Suy --noconfirm --needed archiso git
 
 # Prepare workdir
 RUN mkdir luminus
