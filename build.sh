@@ -435,8 +435,10 @@ build_iso_image() {
     '-append_partition' '2' 'C12A7328-F81F-11D2-BA4B-00A0C93EC93B' "${work_dir}/efiboot.img"
     '-appended_part_as_gpt'
     '-eltorito-alt-boot' 
-    '-e' 'EFI/efiboot.img'
-    '-no-emul-boot')
+    '-e' '--interval:appended_partition_2:all::'
+    '-isohybrid-gpt-basdat'
+    '-no-emul-boot'
+    '-eltorito-catalog' 'EFI/boot.cat')
 
     print_msg "Creating ISO image..."
     xorriso -as mkisofs \
