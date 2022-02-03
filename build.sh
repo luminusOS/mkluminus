@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-late
 #
-# forked and adapted from https://github.com/archlinux/archiso/blob/master/archiso/mkarchiso
+# Forked and adapted from https://github.com/archlinux/archiso/blob/master/archiso/mkarchiso
 
 set -e -u
 
@@ -58,7 +58,8 @@ ENDUSAGETEXT
 print_msg() {
     local message="${1}"
     local type="${2:-}"
-    local datetime="$(date '+%d/%m/%Y %H:%M:%S')"
+    local datetime
+    datetime="$(date '+%d/%m/%Y %H:%M:%S')"
     case "${type}" in
     warn)
         printf '\e[1;33m%s\e[0m\n' "${datetime} [WARN] ${message}"
@@ -151,7 +152,8 @@ make_packages() {
     print_msg "Installing packages to '${pacstrap_dir}/'..."
 
     local packages_from_file=()
-    local package_files="$(ls ${base_path}/packages/*.pkglist)"
+    local package_files
+    package_files="$(ls "${base_path}"/packages/*.pkglist)"
 
     for pkg_file in ${package_files}; do
         mapfile -t packages_from_file < <(sed '/^[[:blank:]]*#.*/d;s/#.*//;/^[[:blank:]]*$/d' "${pkg_file}")
@@ -223,11 +225,11 @@ make_customize_airootfs() {
         done < "${base_path}/airootfs/etc/passwd"
     fi
 
-    for script in ${pacstrap_dir}/root/scripts/*.sh; do
+    for script in "${pacstrap_dir}/root/scripts"/*.sh; do
         if [[ -e "${script}" ]]; then
             print_msg "Running '${script}' in chroot..."
             chmod -f -- +x "${script}"
-            eval -- env -u TMPDIR arch-chroot "${pacstrap_dir}" "/root/scripts/$(basename -- $script)"
+            eval -- env -u TMPDIR arch-chroot "${pacstrap_dir}" "/root/scripts/$(basename -- "$script")"
             rm -- "${script}"
         fi
     done
@@ -450,7 +452,7 @@ build_iso_image() {
             "${xorrisofs_options[@]}" \
             -output "${out_dir}/${image_name}" \
             "${isofs_dir}/"
-    print_msg "ISO image created in "${out_dir}/${image_name}""
+    print_msg "ISO image created in ""${out_dir}"/"${image_name}"""
     du -h -- "${out_dir}/${image_name}"
 }
 
