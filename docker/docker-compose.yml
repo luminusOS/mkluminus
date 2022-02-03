@@ -2,13 +2,22 @@ version: "3.9"
 
 services:
   luminus:
+    image: "luminus/build:latest"
     security_opt:
       - apparmor:unconfined
     cap_add:
       - SYS_ADMIN
-    image: "luminus/build:latest"
+    tty: true
+    stdin_open: true
     volumes:
       - type: bind
         source: /tmp
         target: /luminus/out
         read_only: false
+      - type: volume
+        source: appdata
+        target: /luminus
+
+volumes:
+  appdata:
+    name: "luminus-appdata"
