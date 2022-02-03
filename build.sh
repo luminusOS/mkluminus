@@ -437,7 +437,9 @@ build_iso_image() {
     '-eltorito-alt-boot'
     '-e' '--interval:appended_partition_2:all::'
     '-isohybrid-gpt-basdat'
+    '-eltorito-boot' 'EFI/efiboot.img'
     '-no-emul-boot'
+    '-eltorito-platform' 'efi'
     '-eltorito-catalog' 'EFI/boot.cat')
 
     print_msg "Creating ISO image..."
