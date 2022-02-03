@@ -434,7 +434,7 @@ build_iso_image() {
     '-partition_offset' '16'
     '-append_partition' '2' 'C12A7328-F81F-11D2-BA4B-00A0C93EC93B' "${work_dir}/efiboot.img"
     '-appended_part_as_gpt'
-    '-eltorito-alt-boot' 
+    '-eltorito-alt-boot'
     '-e' '--interval:appended_partition_2:all::'
     '-isohybrid-gpt-basdat'
     '-no-emul-boot'
