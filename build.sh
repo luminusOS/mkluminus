@@ -284,7 +284,7 @@ make_uefi_bootmode() {
         "${pacstrap_dir}/usr/share/refind/fonts/" \
         "${pacstrap_dir}/usr/share/refind/themes/" \
         "${pacstrap_dir}/usr/share/edk2-shell/x64/Shell_Full.efi" \
-        "${base_path}/efiboot/" \
+        "${base_path}/efiboot"/* \
         "${pacstrap_dir}/boot/vmlinuz-"* \
         "${pacstrap_dir}/boot/initramfs-"*".img" \
         "${_available_ucodes[@]}" \
@@ -322,6 +322,8 @@ make_uefi_bootmode() {
              s|%ARCH%|${arch}|g" \
             "${_conf}" | mcopy -i "${work_dir}/efiboot.img" - "::/EFI/BOOT/${_conf##*/}"
     done
+    mcopy -i "${work_dir}/efiboot.img" \
+        "${base_path}/efiboot/startup.nsh" ::/
 
     # shellx64.efi is picked up automatically when on /
     if [[ -e "${pacstrap_dir}/usr/share/edk2-shell/x64/Shell_Full.efi" ]]; then
