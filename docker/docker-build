@@ -7,12 +7,13 @@ RUN echo 'Server = http://linorg.usp.br/archlinux/$repo/os/$arch' > /etc/pacman.
 RUN --mount=type=cache,sharing=locked,target=/var/cache/pacman \
     pacman -Suy --noconfirm --needed archiso git
 
-# Prepare workdir
+# Prepare it
 RUN mkdir luminus
-COPY .. /luminus
-WORKDIR /luminus
+RUN mkdir docker
+WORKDIR /docker
+COPY docker.sh .
 
 # Make build.sh executable and start it
-RUN chown root build.sh
-RUN chmod a+x build.sh
-CMD ["/luminus/build.sh", "-d"]
+RUN chown root docker.sh
+RUN chmod a+x docker.sh
+CMD ["sh", "docker.sh"]

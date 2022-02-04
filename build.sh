@@ -278,8 +278,8 @@ make_uefi_bootmode() {
     done
     # Calculate the required FAT image size in bytes
     efiboot_imgsize="$(du -bc \
-        "${pacstrap_dir}/usr/share/refind/*.efi" \
-        "${pacstrap_dir}/usr/share/refind/drivers_x64/*.efi" \
+        "${pacstrap_dir}/usr/share/refind"/*.efi"" \
+        "${pacstrap_dir}/usr/share/refind/drivers_x64"/*.efi"" \
         "${pacstrap_dir}/usr/share/refind/icons/" \
         "${pacstrap_dir}/usr/share/refind/fonts/" \
         "${pacstrap_dir}/usr/share/refind/themes/" \
@@ -307,7 +307,7 @@ make_uefi_bootmode() {
         "${pacstrap_dir}/usr/share/refind/icons" ::/EFI/BOOT/
     mcopy -i "${work_dir}/efiboot.img" \
         "${pacstrap_dir}/usr/share/refind/fonts" ::/EFI/BOOT/
-        
+    
     mmd -i "${work_dir}/efiboot.img" ::/EFI/BOOT/themes/orchiis ::/EFI/BOOT/themes/orchiis/icons ::/EFI/BOOT/themes/orchiis/fonts
     mcopy -i "${work_dir}/efiboot.img" \
         "${pacstrap_dir}/usr/share/refind/themes/orchiis" ::/EFI/BOOT/themes/
@@ -435,10 +435,10 @@ build_iso_image() {
     '-append_partition' '2' 'C12A7328-F81F-11D2-BA4B-00A0C93EC93B' "${work_dir}/efiboot.img"
     '-appended_part_as_gpt'
     '-eltorito-alt-boot'
-    '-e' '--interval:appended_partition_2:all::'
     '-isohybrid-gpt-basdat'
-    '-eltorito-boot' 'EFI/efiboot.img'
     '-no-emul-boot'
+    '-e' '--interval:appended_partition_2:all::'
+    '-eltorito-boot' 'EFI/efiboot.img'
     '-eltorito-platform' 'efi'
     '-eltorito-catalog' 'EFI/boot.cat')
 

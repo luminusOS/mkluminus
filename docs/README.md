@@ -85,7 +85,7 @@ For more options in build
 
 Build the image with the above command as root user
 
-    DOCKER_BUILDKIT=1 docker build -t luminus/build:latest -f docker/Dockerfile .
+    DOCKER_BUILDKIT=1 docker build -t luminus/build:latest -f docker/docker-build .
 
 After create the container with docker compose
 
