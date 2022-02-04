@@ -9,7 +9,8 @@ do
     sleep 4
     if [[ -e "/luminus/build.sh" ]]; then
         cd /luminus || exit
-        sh build.sh -d
+        mkdir -p /tmp/luminus /tmp/luminus/out /tmp/luminus/work
+        sh build.sh -w /tmp/luminus/work -o /tmp/luminus/out -d
         exit
     fi
 done

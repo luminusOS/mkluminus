@@ -11,6 +11,9 @@ services:
         source: /home/idvlab/Git/mkluminus
         target: /luminus
         read_only: false
+      - type: bind
+        source: /tmp
+        target: /tmp
 
 #volumes:
 #  appdata:
