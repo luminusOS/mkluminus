@@ -11,9 +11,9 @@ RUN --mount=type=cache,sharing=locked,target=/var/cache/pacman \
 RUN mkdir luminus
 RUN mkdir docker
 WORKDIR /docker
-COPY docker.sh .
+COPY docker-entrypoint.sh .
 
 # Make build.sh executable and start it
-RUN chown root docker.sh
-RUN chmod a+x docker.sh
-CMD ["sh", "docker.sh"]
+RUN chown root docker-entrypoint.sh
+RUN chmod a+x docker-entrypoint.sh
+CMD ["sh", "docker-entrypoint.sh"]
