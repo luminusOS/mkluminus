@@ -5,12 +5,14 @@ ffmpegthumbnailer
 gamemode
 libreoffice-fresh
 networkmanager
+open-vm-tools
 os-prober
 pipewire
 pipewire-pulse
 pipewire-alsa
 plymouth
 powerline
+python-archinstall
 quota-tools
 reflector
 rygel
