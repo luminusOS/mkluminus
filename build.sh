@@ -338,11 +338,22 @@ make_uefi_bootmode() {
     install -m 0644 -- "${pacstrap_dir}/boot/initramfs-"*".img" "${isofs_dir}/${install_dir}/boot/${arch}/"
     install -m 0644 -- "${pacstrap_dir}/boot/vmlinuz-"* "${isofs_dir}/${install_dir}/boot/${arch}/"
 
+    for ucode_image in "${ucodes[@]}"; do
+        if [[ -e "${pacstrap_dir}/boot/${ucode_image}" ]]; then
+            install -m 0644 -- "${pacstrap_dir}/boot/${ucode_image}" "${isofs_dir}/${install_dir}/boot/"
+            if [[ -e "${pacstrap_dir}/usr/share/licenses/${ucode_image%.*}/" ]]; then
+                install -d -m 0755 -- "${isofs_dir}/${install_dir}/boot/licenses/${ucode_image%.*}/"
+                install -m 0644 -- "${pacstrap_dir}/usr/share/licenses/${ucode_image%.*}/"* \
+                    "${isofs_dir}/${install_dir}/boot/licenses/${ucode_image%.*}/"
+            fi
+        fi
+    done
+
     # Additionally set up system-boot in ISO 9660. This allows creating a medium for the live environment by using
     # manual partitioning and simply copying the ISO 9660 file system contents.
     # This is not related to El Torito booting and no firmware uses these files.
     print_msg "Preparing an /EFI directory for the ISO 9660 file system..."
-    install -d -m 0755 -- "${isofs_dir}/EFI/BOOT"
+    install -d -m 0755 -- "${isofs_dir}/EFI"
 
     # edk2-shell based UEFI shell
     # shellx64.efi is picked up automatically when on /
@@ -351,7 +362,7 @@ make_uefi_bootmode() {
     fi
 
     # Copy kernel and initramfs to FAT image.
-    # systemd-boot can only access files from the EFI system partition it was launched from.
+    # rEFInd can only access files from the EFI system partition it was launched from.
     local ucode_image all_ucode_images=()
     print_msg "Preparing kernel and initramfs for the FAT file system..."
     mmd -i "${work_dir}/efiboot.img" \
