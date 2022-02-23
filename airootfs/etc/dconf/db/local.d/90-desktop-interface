@@ -1,0 +1,8 @@
+[org/gnome/desktop/interface]
+clock-show-date=true
+clock-show-weekday=false
+enable-hot-corners=false
+gtk-im-module='gtk-im-context-simple'
+gtk-theme='Adwaita-dark'
+icon-theme='Papirus-Dark'
+show-battery-percentage=true

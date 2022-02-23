@@ -1,0 +1,4 @@
+[org/gnome/desktop/wm/preferences]
+action-middle-click-titlebar='none'
+button-layout='appmenu:minimize,maximize,close'
+num-workspaces=2
