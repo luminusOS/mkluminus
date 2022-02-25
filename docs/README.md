@@ -40,17 +40,18 @@ Focus on what matters. Based on <a href="https://www.archlinux.org">Arch Linux</
 ## Requirements
 
 For your system
- - A UEFI System Compatible
- - KVM CPU Compatible
+
+- A UEFI System Compatible
+- KVM CPU Compatible
 
 You need install these packages to build the ISO.
 
- - Pacman
- - Pacstrap
- - Git
- - QEMU
- - mksquashfs
- - xorriso
+- Pacman
+- Pacstrap
+- Git
+- QEMU
+- mksquashfs
+- xorriso
 
 Get the source code.
 
