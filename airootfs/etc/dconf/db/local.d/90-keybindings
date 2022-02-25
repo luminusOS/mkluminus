@@ -5,3 +5,7 @@ custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybin
 binding='<Primary><Alt>T'
 command='gnome-terminal'
 name='Terminal'
+
+[org/gnome/desktop/peripherals/keyboard]
+numlock-state=true
+remember-numlock-state=true
