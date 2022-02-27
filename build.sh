@@ -20,7 +20,7 @@ source "scripts/image.sh"
 
 declare -A file_permissions=(
     ["/etc/shadow"]="0:0:400"
-    ["/etc/gshadow"]="0:0:0400"
+    ["/etc/gshadow"]="0:0:400"
     ["/root"]="0:0:750"
 )
 # adapted from GRUB_EARLY_INITRD_LINUX_STOCK in https://git.savannah.gnu.org/cgit/grub.git/tree/util/grub-mkconfig.in
