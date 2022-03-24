@@ -1,3 +1,4 @@
+baobab
 cheese
 dconf-editor
 eog
@@ -34,7 +35,7 @@ gnome-session
 gnome-settings-daemon
 gnome-shell
 gnome-software
-gnome-software-packagekit-plugin
+#gnome-software-packagekit-plugin
 gnome-system-monitor
 gnome-terminal
 gnome-themes-extra

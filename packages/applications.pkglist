@@ -13,6 +13,7 @@ pipewire-alsa
 plymouth
 powerline
 python-archinstall
+python-yaml
 quota-tools
 reflector
 rygel
