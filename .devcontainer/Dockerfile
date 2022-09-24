@@ -2,7 +2,9 @@ FROM archlinux:base-devel
 
 # Install necessary packages like archiso and git to run
 # and build Luminus
+RUN pacman -Syy --noconfirm --needed archiso git zsh bash
 
-RUN pacman -Syy --noconfirm --needed archiso git zsh
+RUN ln -s /opt/mkluminus/bin/mkluminus /usr/sbin/mkluminus
+COPY . /opt/mkluminus/
 
-CMD ["/usr/bin/zsh"]
+ENTRYPOINT ["zsh", ""]

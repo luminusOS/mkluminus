@@ -1,12 +1,8 @@
 {
 	"name": "Luminus Core Development Environment",
 	"build": {
-		"dockerfile": "Dockerfile"
-		//"args": { "VARIANT": "ubuntu-22.04" }
-	}
-
-	// "remoteUser": "vscode",
-	// "features": {
-	// 	"golang": "latest"
-	// }
+		"dockerfile": "Dockerfile",
+		"context": ".."
+	},
+	"runArgs": ["--privileged"]
 }

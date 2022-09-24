@@ -11,12 +11,11 @@ umask 0022
 export LC_ALL="C"
 export SOURCE_DATE_EPOCH="${SOURCE_DATE_EPOCH:-"$(date +%s)"}"
 
-source "scripts/profiledef.sh"
-source "scripts/global.sh"
-source "scripts/pacman.sh"
-source "scripts/airootfs.sh"
-source "scripts/bootmode.sh"
-source "scripts/image.sh"
+source "/opt/mkluminus/bin/modules/profiledef.in"
+source "/opt/mkluminus/bin/modules/pacman.in"
+source "/opt/mkluminus/bin/modules/airootfs.in"
+source "/opt/mkluminus/bin/modules/bootmode.in"
+source "/opt/mkluminus/bin/modules/image.in"
 
 declare -A file_permissions=(
     ["/etc/shadow"]="0:0:400"
@@ -38,7 +37,7 @@ usage: build.sh [options]
      -w [directory]     Change work directory
 Example:
     Build an Luminus ISO image:
-    $ build.sh -o "~/luminus-iso" -w "~/luminus-work" -d -s
+    $ mkluminus -o ~/mkluminus/iso -w ~/mkluminus/work -d -s
 ENDUSAGETEXT
     printf '%s' "${usagetext}"
     exit "${1}"

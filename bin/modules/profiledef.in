@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+#
+# SPDX-License-Identifier: GPL-3.0-or-late
+
+iso_name="luminus-main"
+iso_label="LUMINUS_$(date +%Y%m)"
+iso_publisher="Luminus OS <https://luminusos.github.io/>"
+iso_application="Luminus OS"
+iso_version="$(date +%Y.%m.%d)"
+install_dir="luminus"
+arch="x86_64"
+packages=()
+defpath="$( cd "$(dirname "$(readlink -f "$0")")" && cd .. && pwd )"
+work_dir="${defpath}/work"
+isofs_dir="${work_dir}/iso"
+pacstrap_dir="${work_dir}/${arch}/airootfs"
+out_dir="${defpath}/out"
+pacman_conf="${defpath}/airootfs/etc/pacman.conf"
