@@ -1,0 +1,8 @@
+{
+	"name": "Luminus Core Development Environment",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": ".."
+	},
+	"runArgs": ["--privileged"]
+}
