@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-Focus on what matters. Based on <a href="https://www.archlinux.org">Arch Linux</a>.
+Keep moving forward. Based on <a href="https://www.archlinux.org">Arch Linux</a>.
 </p>
 
 ## Screenshots
