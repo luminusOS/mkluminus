@@ -4,7 +4,4 @@ FROM archlinux:base-devel
 # and build Luminus
 RUN pacman -Syy --noconfirm --needed archiso git zsh bash
 
-RUN ln -s /opt/mkluminus/bin/mkluminus /usr/sbin/mkluminus
-COPY . /opt/mkluminus/
-
 ENTRYPOINT ["zsh", ""]
