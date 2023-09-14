@@ -5,3 +5,7 @@
 work
 out
 .vscode
+
+# Added by cargo
+
+/target
