@@ -5,17 +5,17 @@ use std::path::Path;
 use std::process::Command;
 use std::os::unix::fs::PermissionsExt;
 // preciso verificar as variáveis de ambiente
-const PACSTRAP_DIR: &str = " ";
-const DEPHANT: *str = " ";
-const ISO_VERSION: &str = " ";
-const ISO_NAME: &str = " ";
-const INSTALL_DIR: &str = " ";
+const PACSTRAP_DIR: &str = pacstrap_dir.to_str().unwrap();
+const DEPHANT: &str = install_dir;
+const ISO_VERSION: &str = iso_version.as_str();
+const ISO_NAME: &str = iso_name;
+const INSTALL_DIR: &str = install_dir;
 
-const PACSTRAP_DIR: &str = " ";
+/*const PACSTRAP_DIR: &str = " ";
 const DEPHANT: &str = " ";
 const ISO_VERSION: &str = " ";
 const ISO_NAME: &str = " ";
-const INSTALL_DIR: &str " ";
+const INSTALL_DIR: &str " ";*/
 
 fn print_msg(message: &str, level: &str){
     println!("{}:{}", level, message);
@@ -388,5 +388,35 @@ fn mkairootfs_squashfs(pacstrap_dir: &str) {
         exit(1);
     }
 
-    // Implementar o mkchecksum aqui
+    fn mkchecksum() -> io::Result<()> {
+        print_msg("Creating checksum file for self-test...");
+    
+        let isofs_dir = &isofs_dir;
+        let install_dir = &install_dir;
+        let arch = &arch;
+    
+        let old_pwd = env::current_dir()?;
+        let iso_root_dir = isofs_dir.join(install_dir).join(arch);
+    
+        env::set_current_dir(&iso_root_dir)?;
+    
+        if iso_root_dir.join("airootfs.sfs").exists() {
+            let mut sha512sum_file = File::create(iso_root_dir.join("airootfs.sha512"))?;
+            let output = Command::new("sha512sum")
+                .arg("airootfs.sfs")
+                .output()?;
+            sha512sum_file.write_all(&output.stdout)?;
+        } else if iso_root_dir.join("airootfs.erofs").exists() {
+            let mut sha512sum_file = File::create(iso_root_dir.join("airootfs.sha512"))?;
+            let output = Command::new("sha512sum")
+                .arg("airootfs.erofs")
+                .output()?;
+            sha512sum_file.write_all(&output.stdout)?;
+        }
+    
+        env::set_current_dir(old_pwd)?;
+    
+        Ok(())
+    }
+    mkchecksum();
 }

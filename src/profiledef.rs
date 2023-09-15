@@ -3,7 +3,6 @@ use std::path::{Path, PathBuf};
 use std::process::Command;
 use chrono::Utc;
 
-fn main() {
     let iso_name = "luminus-main";
     let iso_label = format!("LUMINUS_{}", Utc::now().format("%Y%m"));
     let iso_publisher = "Luminus OS <https://luminusos.github.io/>";
@@ -18,4 +17,3 @@ fn main() {
     let pacstrap_dir = work_dir.join(arch).join("airootfs");
     let out_dir = defpath.join("out");
     let pacman_conf = pacstrap_dir.join("etc").join("pacman.conf");
-}
